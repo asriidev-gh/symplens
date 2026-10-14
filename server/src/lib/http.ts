@@ -4,7 +4,7 @@ import { clientIp, consumeBudget, installId, rateLimit } from "./ratelimit";
 /** Error with a message that is safe to show to end users. */
 export class SafeError extends Error {
   constructor(
-    public code: "invalid_request" | "rate_limited" | "analysis_failed" | "unsafe_output" | "unavailable",
+    public code: "invalid_request" | "rate_limited" | "analysis_failed" | "unsafe_output" | "unavailable" | "subscription_required",
     public status: number,
     public retryAfterSec?: number,
   ) {

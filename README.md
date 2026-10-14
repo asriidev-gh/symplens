@@ -47,5 +47,12 @@ Run `npm run eval` after any change to prompts, schema or safety code. GitHub Ac
 - [ ] Regulatory review (medical-device software rules) and privacy/terms; data-processing terms with the AI provider
 - [ ] App icon / splash (currently Expo defaults; the extracted logos are ~264 px), EAS builds, store listings
 
+## Paywall setup
+1. Create the yearly subscription in App Store Connect and Play Console (price e.g. $29.99, no introductory offer).
+2. In RevenueCat: add both apps, an entitlement named `pro`, and an offering whose current package is the yearly product.
+3. Put the public SDK keys in `mobile/.env` (`EXPO_PUBLIC_RC_IOS_KEY`, `EXPO_PUBLIC_RC_ANDROID_KEY`). Purchases need an EAS development or production build (not Expo Go).
+4. On the server set `REQUIRE_SUBSCRIPTION=true` and `REVENUECAT_SECRET_KEY`.
+5. Before release add a working Terms and Privacy link (both stores require them for subscriptions), and test with sandbox/test purchases on a real device.
+
 ## Not built yet
 Accounts & subscriptions · family profiles · embeddings / similar-case lookup (schema and opt-in endpoint exist) · right-to-left languages.

@@ -1,4 +1,6 @@
 import { assertImageMatches, enforceLimits, errorResponse, json, readBody, preflight, withCors, enforceBudget } from "@/lib/http";
+import { hasEntitlement, subscriptionRequiredError } from "@/lib/entitlement";
+import { detectEmergency, emergencyFallback } from "@/lib/safety";
 import { logEvent } from "@/lib/log";
 import { runAnalysis } from "@/lib/pipeline";
 import { AnalyzeRequestSchema } from "@/lib/schema";
@@ -15,6 +17,12 @@ async function handle(req: Request): Promise<Response> {
     const body = await readBody(req, AnalyzeRequestSchema, MAX_BODY);
     if (body.image) assertImageMatches(body.image.mediaType, body.image.data);
     if (body.previous?.image) assertImageMatches(body.previous.image.mediaType, body.previous.image.data);
+    if (!(await hasEntitlement(req))) {
+      // No subscription: emergency guidance is still free and needs no model call. Anything else needs the paywall.
+      const check = detectEmergency([body.description, ...body.answers.map((a) => a.answer)], body.subject.ageGroup);
+      if (!check.emergency) throw subscriptionRequiredError();
+      return json({ analysis: emergencyFallback(check), emergency: true, emergencyReasons: check.reasons });
+    }
     await enforceBudget("analysis"); // global daily spend cap
 
     const result = await runAnalysis(body);

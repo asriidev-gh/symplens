@@ -5,6 +5,7 @@ import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ToastProvider } from "@/components/Toast";
 import { StoreProvider, useStore } from "@/lib/store";
+import { SubscriptionProvider } from "@/lib/subscription";
 import { colors } from "@/theme";
 
 function Routes() {
@@ -27,6 +28,7 @@ function Routes() {
         <Stack.Screen name="result" />
         <Stack.Screen name="chat" />
         <Stack.Screen name="about" />
+        <Stack.Screen name="paywall" options={{ presentation: "modal" }} />
       </Stack.Protected>
     </Stack>
     </>
@@ -38,7 +40,9 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <StoreProvider>
         <ToastProvider>
-          <Routes />
+          <SubscriptionProvider>
+            <Routes />
+          </SubscriptionProvider>
         </ToastProvider>
       </StoreProvider>
     </SafeAreaProvider>

@@ -56,6 +56,10 @@ export default function Chat() {
       );
       setMsgs([...next, { role: "assistant", text: r.answer, emergency: r.emergency || local.emergency }]);
     } catch (e) {
+      if (e instanceof ApiError && e.kind === "subscription" && !local.emergency) {
+        router.push("/paywall");
+        return;
+      }
       if (local.emergency) {
         setMsgs([...next, { role: "assistant", text: t("emergencyBody"), emergency: true }]);
       } else {

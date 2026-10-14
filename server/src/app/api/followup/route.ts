@@ -1,4 +1,5 @@
 import { enforceLimits, errorResponse, json, readBody, preflight, withCors, enforceBudget } from "@/lib/http";
+import { hasEntitlement, subscriptionRequiredError } from "@/lib/entitlement";
 import { logEvent } from "@/lib/log";
 import { runFollowUp } from "@/lib/pipeline";
 import { FollowUpRequestSchema } from "@/lib/schema";
@@ -11,6 +12,7 @@ async function handle(req: Request): Promise<Response> {
   try {
     await enforceLimits(req, 40, 10 * 60_000);
     const body = await readBody(req, FollowUpRequestSchema, 40_000);
+    if (!(await hasEntitlement(req))) throw subscriptionRequiredError();
     await enforceBudget("aux"); // global daily spend cap
     const result = await runFollowUp(body);
     logEvent("followup_ok", { ms: Date.now() - started, urgency: result.urgency });

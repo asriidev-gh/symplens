@@ -70,6 +70,10 @@ export default function Processing() {
       response = await analyze(draft, settings.locale, settings.installId, previous);
     } catch (e) {
       if (my !== runId.current) return;
+      if (e instanceof ApiError && e.kind === "subscription" && !local.emergency) {
+        router.replace("/paywall?next=processing");
+        return;
+      }
       if (local.emergency) {
         // Safety guidance must not depend on the network or the AI.
         response = { analysis: emergencyFallback(local), emergency: true, emergencyReasons: local.reasons };

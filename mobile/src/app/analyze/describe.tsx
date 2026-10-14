@@ -8,6 +8,7 @@ import { detectEmergency } from "@/lib/safety";
 import { setDraft, useDraft } from "@/lib/session";
 import { startDictation } from "@/lib/speech";
 import { useStore } from "@/lib/store";
+import { useSubscription } from "@/lib/subscription";
 import { DURATIONS } from "@/lib/types";
 import { colors, radius, space } from "@/theme";
 
@@ -29,6 +30,7 @@ export default function Describe() {
     [text, draft.subject?.ageGroup],
   );
 
+  const sub = useSubscription();
   const canAnalyze = text.trim().length > 0 || !!draft.attachment;
 
   const toggleVoice = async () => {
@@ -53,7 +55,9 @@ export default function Describe() {
 
   const analyze = () => {
     setDraft({ description: text.trim(), answers: [] });
-    router.push("/processing");
+    // Emergency guidance is always free; everything else needs the yearly plan (the server enforces this too).
+    if (sub.status === "inactive" && !safety.emergency) router.push("/paywall?next=processing");
+    else router.push("/processing");
   };
 
   return (
