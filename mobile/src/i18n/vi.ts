@@ -217,6 +217,7 @@ const vi: Dict = {
   paywallError: "Giao dịch mua gặp sự cố. Vui lòng thử lại.",
   paywallNothing: "Không tìm thấy gói đăng ký đang hoạt động cho tài khoản này.",
   paywallUnavailable: "Hiện chưa thể mua. Vui lòng thử lại sau.",
+  monthlyLimitBody: "Bạn đã đạt giới hạn sử dụng hợp lý của gói trong tháng này. Giới hạn được đặt lại vào đầu tháng sau. Dấu hiệu cảnh báo khẩn cấp luôn được hiển thị; nếu bạn nghĩ đây là trường hợp khẩn cấp, hãy gọi số khẩn cấp tại địa phương.",
   sPrivacy: "Quyền riêng tư",
   privateMode: "Chế độ riêng tư",
   privateModeDesc: "Không có gì được lưu trên thiết bị này sau khi bạn rời khỏi kết quả.",

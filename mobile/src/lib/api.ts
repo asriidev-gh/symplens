@@ -4,7 +4,7 @@ import type { Draft } from "./session";
 
 const BASE = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3000";
 
-export type ApiErrorKind = "offline" | "rate_limited" | "unsafe" | "subscription" | "failed";
+export type ApiErrorKind = "offline" | "rate_limited" | "unsafe" | "subscription" | "monthly_limit" | "failed";
 export class ApiError extends Error {
   constructor(public kind: ApiErrorKind) {
     super(kind);
@@ -31,7 +31,10 @@ async function post<T>(path: string, body: unknown, installId: string, timeoutMs
       body: JSON.stringify(body),
       signal: ctrl.signal,
     });
-    if (res.status === 429) throw new ApiError("rate_limited");
+    if (res.status === 429) {
+      const code = (await res.json().catch(() => ({})))?.error;
+      throw new ApiError(code === "monthly_limit" ? "monthly_limit" : "rate_limited");
+    }
     if (res.status === 402) throw new ApiError("subscription");
     if (!res.ok) {
       const code = (await res.json().catch(() => ({})))?.error;

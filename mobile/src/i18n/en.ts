@@ -277,6 +277,7 @@ const en = {
   paywallError: "Something went wrong with the purchase. Please try again.",
   paywallNothing: "No active subscription was found for this account.",
   paywallUnavailable: "Purchases are not available right now. Please try again later.",
+  monthlyLimitBody: "You have reached this month's fair-use limit for your plan. It resets at the start of next month. Emergency warning signs are always shown, and if you think this is an emergency, call your local emergency number.",
   sPrivacy: "Privacy",
   privateMode: "Private Mode",
   privateModeDesc: "Nothing is saved on this device after you leave a result.",

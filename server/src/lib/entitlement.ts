@@ -1,5 +1,5 @@
 import { SafeError } from "./http";
-import { installId } from "./ratelimit";
+import { consumeQuota, installId } from "./ratelimit";
 import { logEvent } from "./log";
 
 /**
@@ -53,3 +53,16 @@ export async function hasEntitlement(req: Request, fetchFn: typeof fetch = fetch
 }
 
 export const subscriptionRequiredError = () => new SafeError("subscription_required", 402);
+
+/**
+ * Fair-use cap per subscriber per UTC month (MONTHLY_ANALYSIS_LIMIT, default 60; MONTHLY_AUX_LIMIT for chat and
+ * translation, default 300). Counted only for entitled callers, so emergency answers never use it up or hit it.
+ */
+export async function enforceMonthlyQuota(req: Request, kind: "analysis" | "aux"): Promise<void> {
+  if (!subscriptionRequired()) return;
+  const id = installId(req);
+  if (!id) return;
+  const limit = Number(kind === "analysis" ? process.env.MONTHLY_ANALYSIS_LIMIT ?? 60 : process.env.MONTHLY_AUX_LIMIT ?? 300);
+  const q = await consumeQuota(kind, id, limit);
+  if (!q.ok) throw new SafeError("monthly_limit", 429, q.retryAfterSec);
+}

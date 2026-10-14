@@ -1,5 +1,5 @@
 import { assertImageMatches, enforceLimits, errorResponse, json, readBody, preflight, withCors, enforceBudget } from "@/lib/http";
-import { hasEntitlement, subscriptionRequiredError } from "@/lib/entitlement";
+import { enforceMonthlyQuota, hasEntitlement, subscriptionRequiredError } from "@/lib/entitlement";
 import { detectEmergency, emergencyFallback } from "@/lib/safety";
 import { logEvent } from "@/lib/log";
 import { runAnalysis } from "@/lib/pipeline";
@@ -23,6 +23,7 @@ async function handle(req: Request): Promise<Response> {
       if (!check.emergency) throw subscriptionRequiredError();
       return json({ analysis: emergencyFallback(check), emergency: true, emergencyReasons: check.reasons });
     }
+    await enforceMonthlyQuota(req, "analysis");
     await enforceBudget("analysis"); // global daily spend cap
 
     const result = await runAnalysis(body);

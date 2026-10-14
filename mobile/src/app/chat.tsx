@@ -63,7 +63,9 @@ export default function Chat() {
       if (local.emergency) {
         setMsgs([...next, { role: "assistant", text: t("emergencyBody"), emergency: true }]);
       } else {
-        setError(e instanceof ApiError && e.kind === "offline" ? t("offlineBody") : t("errorBody"));
+        setError(
+          e instanceof ApiError && e.kind === "offline" ? t("offlineBody") : e instanceof ApiError && e.kind === "monthly_limit" ? t("monthlyLimitBody") : t("errorBody"),
+        );
       }
     } finally {
       setBusy(false);

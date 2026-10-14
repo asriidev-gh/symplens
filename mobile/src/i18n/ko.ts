@@ -216,6 +216,7 @@ const ko: Dict = {
   paywallError: "구매 중 문제가 발생했습니다. 다시 시도해 주세요.",
   paywallNothing: "이 계정에서 활성 구독을 찾을 수 없습니다.",
   paywallUnavailable: "지금은 구매할 수 없습니다. 나중에 다시 시도해 주세요.",
+  monthlyLimitBody: "이번 달 플랜의 공정 사용 한도에 도달했습니다. 다음 달 초에 초기화됩니다. 응급 경고 신호는 항상 표시되며, 응급 상황이라고 생각되면 현지 응급 전화번호로 연락하세요.",
   sPrivacy: "개인정보",
   privateMode: "비공개 모드",
   privateModeDesc: "결과 화면을 나가면 이 기기에는 아무것도 저장되지 않습니다.",

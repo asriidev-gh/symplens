@@ -216,6 +216,7 @@ const zh: Dict = {
   paywallError: "购买出现问题，请重试。",
   paywallNothing: "此账户未找到有效订阅。",
   paywallUnavailable: "目前无法购买，请稍后再试。",
+  monthlyLimitBody: "你已达到本月套餐的合理使用上限，将在下月初重置。紧急警示信号始终会显示；如果你认为情况紧急，请拨打当地急救电话。",
   sPrivacy: "隐私",
   privateMode: "隐私模式",
   privateModeDesc: "离开结果页后，不会在此设备上保存任何内容。",

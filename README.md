@@ -51,7 +51,7 @@ Run `npm run eval` after any change to prompts, schema or safety code. GitHub Ac
 1. Create the yearly subscription in App Store Connect and Play Console (price e.g. $29.99, no introductory offer).
 2. In RevenueCat: add both apps, an entitlement named `pro`, and an offering whose current package is the yearly product.
 3. Put the public SDK keys in `mobile/.env` (`EXPO_PUBLIC_RC_IOS_KEY`, `EXPO_PUBLIC_RC_ANDROID_KEY`). Purchases need an EAS development or production build (not Expo Go).
-4. On the server set `REQUIRE_SUBSCRIPTION=true` and `REVENUECAT_SECRET_KEY`.
+4. On the server set `REQUIRE_SUBSCRIPTION=true` and `REVENUECAT_SECRET_KEY`. Tune the monthly fair-use cap with `MONTHLY_ANALYSIS_LIMIT` (default 60) and `MONTHLY_AUX_LIMIT` (default 300); it needs Redis to be exact across instances.
 5. Before release add a working Terms and Privacy link (both stores require them for subscriptions), and test with sandbox/test purchases on a real device.
 
 ## Not built yet

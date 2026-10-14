@@ -217,6 +217,7 @@ const fr: Dict = {
   paywallError: "Un problème est survenu lors de l'achat. Réessayez.",
   paywallNothing: "Aucun abonnement actif trouvé pour ce compte.",
   paywallUnavailable: "Les achats ne sont pas disponibles pour le moment. Réessayez plus tard.",
+  monthlyLimitBody: "Vous avez atteint la limite d'utilisation équitable de votre abonnement pour ce mois. Elle se réinitialise au début du mois prochain. Les signes d'alerte d'urgence restent toujours affichés ; si vous pensez qu'il s'agit d'une urgence, appelez le numéro d'urgence local.",
   sPrivacy: "Confidentialité",
   privateMode: "Mode privé",
   privateModeDesc: "Rien n'est enregistré sur cet appareil après avoir quitté un résultat.",

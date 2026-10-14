@@ -138,6 +138,8 @@ export default function Processing() {
           ? { h: t("unsafeTitle"), b: t("unsafeBody") }
           : error === "rate_limited"
             ? { h: t("errorTitle"), b: t("rateLimitedBody") }
+            : error === "monthly_limit"
+              ? { h: t("errorTitle"), b: t("monthlyLimitBody") }
             : { h: t("errorTitle"), b: t("errorBody") };
     return (
       <Screen scroll={false}>

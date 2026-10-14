@@ -217,6 +217,7 @@ const de: Dict = {
   paywallError: "Beim Kauf ist etwas schiefgelaufen. Bitte versuche es erneut.",
   paywallNothing: "Für dieses Konto wurde kein aktives Abo gefunden.",
   paywallUnavailable: "Käufe sind derzeit nicht verfügbar. Bitte versuche es später erneut.",
+  monthlyLimitBody: "Du hast das Fair-Use-Limit deines Abos für diesen Monat erreicht. Es wird zu Beginn des nächsten Monats zurückgesetzt. Notfall-Warnzeichen werden immer angezeigt; wenn du glaubst, dass es ein Notfall ist, ruf den lokalen Notruf an.",
   sPrivacy: "Datenschutz",
   privateMode: "Privater Modus",
   privateModeDesc: "Nach dem Verlassen eines Ergebnisses wird nichts auf diesem Gerät gespeichert.",

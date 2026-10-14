@@ -217,6 +217,7 @@ const id: Dict = {
   paywallError: "Terjadi masalah pada pembelian. Silakan coba lagi.",
   paywallNothing: "Tidak ditemukan langganan aktif untuk akun ini.",
   paywallUnavailable: "Pembelian tidak tersedia saat ini. Silakan coba lagi nanti.",
+  monthlyLimitBody: "Anda telah mencapai batas penggunaan wajar paket Anda bulan ini. Batas direset di awal bulan depan. Tanda bahaya darurat selalu ditampilkan; jika Anda mengira ini darurat, hubungi nomor darurat setempat.",
   sPrivacy: "Privasi",
   privateMode: "Mode Privat",
   privateModeDesc: "Tidak ada yang disimpan di perangkat ini setelah Anda meninggalkan hasil.",

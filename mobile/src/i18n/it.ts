@@ -217,6 +217,7 @@ const it: Dict = {
   paywallError: "Qualcosa è andato storto con l'acquisto. Riprova.",
   paywallNothing: "Nessun abbonamento attivo trovato per questo account.",
   paywallUnavailable: "Gli acquisti non sono disponibili al momento. Riprova più tardi.",
+  monthlyLimitBody: "Hai raggiunto il limite di uso corretto del tuo piano per questo mese. Si azzera all'inizio del mese prossimo. I segnali d'allarme di emergenza sono sempre mostrati; se pensi che sia un'emergenza, chiama il numero di emergenza locale.",
   sPrivacy: "Privacy",
   privateMode: "Modalità privata",
   privateModeDesc: "Dopo che esci da un risultato, nulla viene salvato su questo dispositivo.",

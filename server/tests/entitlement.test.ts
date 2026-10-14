@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { clearEntitlementCache, hasEntitlement } from "../src/lib/entitlement";
+import { clearEntitlementCache, enforceMonthlyQuota, hasEntitlement } from "../src/lib/entitlement";
 
 const req = (id?: string) => new Request("http://x/api/analyze", { headers: id ? { "x-install-id": id } : {} });
 const rc = (entitlements: object, status = 200) =>
@@ -42,5 +42,24 @@ describe("subscription entitlement", () => {
     await hasEntitlement(req("abcdef123456"), f);
     await hasEntitlement(req("abcdef123456"), f);
     expect(f).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("monthly fair-use cap", () => {
+  beforeEach(() => vi.stubEnv("REQUIRE_SUBSCRIPTION", "true"));
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("allows up to the limit, then answers 429 monthly_limit with a retry time", async () => {
+    vi.stubEnv("MONTHLY_ANALYSIS_LIMIT", "3");
+    const r = req("quota-test-aaaa1");
+    for (let i = 0; i < 3; i++) await enforceMonthlyQuota(r, "analysis");
+    await expect(enforceMonthlyQuota(r, "analysis")).rejects.toMatchObject({ code: "monthly_limit", status: 429 });
+  });
+  it("counts each install separately and ignores the cap when the gate is off", async () => {
+    vi.stubEnv("MONTHLY_ANALYSIS_LIMIT", "1");
+    await enforceMonthlyQuota(req("quota-test-bbbb2"), "analysis");
+    await expect(enforceMonthlyQuota(req("quota-test-cccc3"), "analysis")).resolves.toBeUndefined();
+    vi.stubEnv("REQUIRE_SUBSCRIPTION", "false");
+    await expect(enforceMonthlyQuota(req("quota-test-bbbb2"), "analysis")).resolves.toBeUndefined();
   });
 });

@@ -1,4 +1,4 @@
-import { hasEntitlement, subscriptionRequiredError } from "@/lib/entitlement";
+import { enforceMonthlyQuota, hasEntitlement, subscriptionRequiredError } from "@/lib/entitlement";
 import { enforceLimits, errorResponse, json, preflight, readBody, withCors, enforceBudget } from "@/lib/http";
 import { logEvent } from "@/lib/log";
 import { runTranslate } from "@/lib/pipeline";
@@ -14,6 +14,7 @@ async function handle(req: Request): Promise<Response> {
     await enforceLimits(req, 30, 10 * 60_000);
     const body = await readBody(req, TranslateRequestSchema, 80_000);
     if (!(await hasEntitlement(req))) throw subscriptionRequiredError();
+    await enforceMonthlyQuota(req, "aux");
     await enforceBudget("aux"); // global daily spend cap
     const result = await runTranslate(body);
     logEvent("translate_ok", { ms: Date.now() - started, target: body.target });

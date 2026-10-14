@@ -217,6 +217,7 @@ const pt: Dict = {
   paywallError: "Algo deu errado com a compra. Tente novamente.",
   paywallNothing: "Nenhuma assinatura ativa foi encontrada nesta conta.",
   paywallUnavailable: "As compras não estão disponíveis agora. Tente novamente mais tarde.",
+  monthlyLimitBody: "Você atingiu o limite de uso justo do seu plano neste mês. Ele é reiniciado no início do próximo mês. Os sinais de alerta de emergência sempre são exibidos; se achar que é uma emergência, ligue para o número de emergência local.",
   sPrivacy: "Privacidade",
   privateMode: "Modo privado",
   privateModeDesc: "Nada é salvo neste dispositivo depois que você sai de um resultado.",

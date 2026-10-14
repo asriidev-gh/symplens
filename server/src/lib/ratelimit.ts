@@ -119,3 +119,20 @@ export async function consumeBudget(kind: string, limit: number): Promise<{ ok: 
   if (n === limit + 1) logEvent("budget_exhausted", { kind, limit });
   return { ok: n <= limit, used: n };
 }
+
+const memQuota = new Map<string, number>();
+
+/** Per-subscriber monthly counter (UTC month). Shared across instances with Redis, per-instance otherwise. */
+export async function consumeQuota(kind: string, id: string, limit: number): Promise<{ ok: boolean; used: number; retryAfterSec: number }> {
+  const now = new Date();
+  const month = now.toISOString().slice(0, 7);
+  const key = `quota:${kind}:${id}:${month}`;
+  let n = await redisIncr(key, 40 * 86_400_000);
+  if (n === null) {
+    n = (memQuota.get(key) ?? 0) + 1;
+    memQuota.set(key, n);
+    if (memQuota.size > 20_000) for (const k of memQuota.keys()) if (!k.endsWith(month)) memQuota.delete(k);
+  }
+  const nextMonth = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1);
+  return { ok: n <= limit, used: n, retryAfterSec: Math.max(60, Math.ceil((nextMonth - now.getTime()) / 1000)) };
+}

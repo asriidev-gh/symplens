@@ -267,6 +267,7 @@ const fil: Dict = {
   paywallError: "May nangyaring mali sa pagbili. Pakisubukan ulit.",
   paywallNothing: "Walang aktibong subscription na nakita sa account na ito.",
   paywallUnavailable: "Hindi available ang mga pagbili ngayon. Pakisubukan ulit mamaya.",
+  monthlyLimitBody: "Naabot mo na ang fair-use limit ng plan mo ngayong buwan. Magre-reset ito sa simula ng susunod na buwan. Palaging ipinapakita ang mga babala ng emergency, at kung sa tingin mo ay emergency ito, tumawag sa local emergency number.",
   sPrivacy: "Privacy",
   privateMode: "Private Mode",
   privateModeDesc: "Walang mase-save sa device na ito pagkatapos mong umalis sa resulta.",
