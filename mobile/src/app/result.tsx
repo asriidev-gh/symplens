@@ -12,7 +12,7 @@ import { LanguageSheet } from "@/components/LanguageSheet";
 import { buildDoctorHtml, shareHtmlAsPdf } from "@/lib/doctorSummary";
 import { openCare } from "@/lib/care";
 import { dayLabel, toExportText, toPlainText } from "@/lib/format";
-import { canSavePhotos, readPhotoBase64, savePhoto } from "@/lib/photos";
+import { canSavePhotos, readPhotoBase64, savePhoto, usePhotoUri } from "@/lib/photos";
 import { discardAttachment, releaseAttachment, setDraft, useCurrent, useDraft } from "@/lib/session";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { useStore } from "@/lib/store";
@@ -366,7 +366,7 @@ export default function Result() {
                 { c: lastPhoto, label: rt("trackNow") },
               ].map(({ c, label }) => (
                 <View key={c.id} style={{ flex: 1, gap: space.xs }}>
-                  <Image source={{ uri: c.photoUri }} style={{ width: "100%", aspectRatio: 1, borderRadius: 14, backgroundColor: colors.line }} resizeMode="cover" accessibilityLabel={label} />
+                  <SavedPhoto uri={c.photoUri} style={{ width: "100%", aspectRatio: 1, borderRadius: 14, backgroundColor: colors.line }} label={label} />
                   <T v="small" color={colors.inkSoft} style={{ textAlign: "center" }}>{label} · {dayLabel(c.createdAt, rt)}</T>
                 </View>
               ))}
@@ -480,4 +480,9 @@ function Block({ title, icon, children }: { title: string; icon: IconName; child
       {children}
     </Card>
   );
+}
+
+function SavedPhoto({ uri, label, style }: { uri?: string; label: string; style: object }) {
+  const src = usePhotoUri(uri);
+  return <Image source={src ? { uri: src } : undefined} style={style} resizeMode="cover" accessibilityLabel={label} />;
 }

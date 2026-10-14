@@ -36,7 +36,7 @@ Run `npm run eval` after any change to prompts, schema or safety code.
 - [ ] Native-speaker review of all translations, especially emergency/disclaimer text
 - [ ] Privacy policy and terms (the Terms screen is a placeholder); confirm Anthropic's data-retention terms
 - [ ] Test on real iOS and Android devices: camera, photo/PDF pickers, text-to-speech, dictation, PDF share sheet, maps link
-- [ ] Encrypt saved photo files at rest (history text is already encrypted; Android cloud backup is disabled)
+- [x] History and saved photos are encrypted at rest (Android cloud backup is disabled)
 - [ ] Production env: `UPSTASH_REDIS_REST_*`, `TRUSTED_PROXY_HOPS`, `DAILY_*_LIMIT`; alert on `budget_80_percent` / `budget_exhausted`; spend limit on the Anthropic workspace
 - [ ] App attestation (App Attest / Play Integrity) so only the genuine app can call the API
 - [ ] Clinician-labeled real-photo evaluation across skin tones, ages and body areas (the live evals are text-only plus one synthetic image)

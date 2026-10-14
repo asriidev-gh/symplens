@@ -66,6 +66,20 @@ export async function writeSecure(name: string, text: string): Promise<void> {
   await AsyncStorage.setItem(name, key ? encryptString(text, key, Crypto.getRandomBytes) : text);
 }
 
+/** Encrypts arbitrary text (e.g. a base64 photo) for storage in a file; plain on web. */
+export async function seal(text: string): Promise<string> {
+  const key = await getKey(true);
+  return key ? encryptString(text, key, Crypto.getRandomBytes) : text;
+}
+
+/** Reverse of seal(); plain (legacy) text passes through. */
+export async function unseal(payload: string): Promise<string> {
+  if (!isEncrypted(payload)) return payload;
+  const key = await getKey(false);
+  if (!key) throw new StorageLockedError();
+  return decryptString(payload, key);
+}
+
 /** Destroys the key, making every encrypted copy unreadable. Used by "Delete all health data". */
 export async function destroyKey(): Promise<void> {
   cached = null;
