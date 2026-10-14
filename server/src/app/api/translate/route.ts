@@ -1,4 +1,4 @@
-import { enforceLimits, errorResponse, json, preflight, readBody, withCors } from "@/lib/http";
+import { enforceLimits, errorResponse, json, preflight, readBody, withCors, enforceBudget } from "@/lib/http";
 import { logEvent } from "@/lib/log";
 import { runTranslate } from "@/lib/pipeline";
 import { TranslateRequestSchema } from "@/lib/schema";
@@ -10,8 +10,9 @@ export const maxDuration = 60;
 async function handle(req: Request): Promise<Response> {
   const started = Date.now();
   try {
-    enforceLimits(req, 30, 10 * 60_000);
+    await enforceLimits(req, 30, 10 * 60_000);
     const body = await readBody(req, TranslateRequestSchema, 80_000);
+    await enforceBudget("aux"); // global daily spend cap
     const result = await runTranslate(body);
     logEvent("translate_ok", { ms: Date.now() - started, target: body.target });
     return json(result);

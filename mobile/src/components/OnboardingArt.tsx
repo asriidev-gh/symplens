@@ -456,7 +456,7 @@ export function BrandSplash({ active }: { active: boolean }) {
           <View style={{ width: 210, height: 210, borderRadius: 105, backgroundColor: colors.brand }} />
         </Layer>
         <Float run={run} dist={7} ms={2000}>
-          <Image source={LOGOS[theme]} style={[{ width: 188, height: 188 }, softShadow]} resizeMode="contain" accessibilityLabel="SympLens logo" />
+          <Image source={LOGOS[theme]} style={[{ width: 188, height: 188 }, softShadow]} resizeMode="contain" accessibilityLabel={t("appName")} />
         </Float>
       </View>
       <Wordmark />

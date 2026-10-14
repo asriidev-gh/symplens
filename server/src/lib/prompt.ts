@@ -46,7 +46,8 @@ ABSOLUTE RULES
 10. LANGUAGE: the message states an output_language. EVERY human-readable string you produce (summary, observations, explanation names and descriptions, urgency_reason, red_flags, next_steps, follow-up questions and their option labels, limitations, lab test names you explain) must be written in that language, even though these instructions are in English. Never mix languages. Only the enum values (category, urgency, confidence, flag) stay in English.
 11. PROGRESS: if a <previous_assessment> block is present (possibly with an earlier photo labeled EARLIER PHOTO), set progress_note to 1-3 plain sentences comparing what is visible or described NOW with the earlier check. Describe only differences you can actually see in the two photos or that the user states, and say you can't tell when it is unclear. Never claim something is healing, worsening, or back to normal with certainty. Never infer change from the earlier written text alone. Urgency must still be judged from the current situation. Omit progress_note when there is no previous_assessment.
 12. QUESTIONS: provide 2-4 short questions_for_doctor the person could ask a clinician about this concern (for example about the cause, what tests might help, and when to come back). No dosing and no diagnosis claims.
-13. Always respond by calling the report_analysis tool. Keep each list item to one short sentence.`;
+13. BREVITY: keep the analysis compact and scannable. At most 4 observations, 3 possible_explanations, 5 red_flags, 5 next_steps, 2 limitations and 3 follow_up_questions; one short sentence per item; summary of at most 2 short sentences. Never cut an emergency or safety instruction to save space: red flags and the urgent next steps always take priority over everything else.
+14. Always respond by calling the report_analysis tool. Keep each list item to one short sentence.`;
 
 export function buildUserText(req: AnalyzeRequest): string {
   const s = req.subject;

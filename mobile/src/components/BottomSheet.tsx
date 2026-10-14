@@ -34,7 +34,7 @@ interface SheetProps {
 export function BottomSheet({ visible, onClose, title, children, dismissible = true }: SheetProps) {
   const insets = useSafeAreaInsets();
   const styles = makeStyles();
-  const { settings } = useStore();
+  const { settings, t } = useStore();
   const [osReduce, setOsReduce] = useState(false);
   const reduce = settings.reduceMotion || osReduce;
   // Stay mounted while the closing animation plays. State follows the prop via the render-phase pattern
@@ -111,7 +111,7 @@ export function BottomSheet({ visible, onClose, title, children, dismissible = t
           <Pressable
             style={StyleSheet.absoluteFill}
             onPress={dismissible ? onClose : undefined}
-            accessibilityLabel="Close"
+            accessibilityLabel={t("closeLabel")}
             accessibilityRole="button"
           />
         </Animated.View>

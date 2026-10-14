@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useIsFocused } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   AccessibilityInfo,
@@ -56,6 +57,7 @@ const DWELL_MS = 4500;
 export function ScanHero() {
   const { t, settings } = useStore();
   const styles = makeStyles();
+  const focused = useIsFocused(); // tabs stay mounted: do not animate while another tab is showing
   const { width } = useWindowDimensions();
   const stacked = width < 380; // very narrow phones: stack instead of two columns
   const [osReduce, setOsReduce] = useState(false);
@@ -72,7 +74,7 @@ export function ScanHero() {
 
   // Scan line sweeps top to bottom.
   useEffect(() => {
-    if (reduce) {
+    if (reduce || !focused) {
       scan.setValue(0.5);
       return;
     }
@@ -84,18 +86,18 @@ export function ScanHero() {
     );
     loop.start();
     return () => loop.stop();
-  }, [reduce, scan]);
+  }, [reduce, focused, scan]);
 
   // One animation drives the cycle: when the progress bar fills, move to the next area.
   useEffect(() => {
     progress.setValue(0);
-    if (reduce || manual) return;
+    if (reduce || manual || !focused) return;
     const anim = Animated.timing(progress, { toValue: 1, duration: DWELL_MS, easing: Easing.linear, useNativeDriver: true });
     anim.start(({ finished }) => {
       if (finished) setIndex((i) => (i + 1) % AREAS.length);
     });
     return () => anim.stop();
-  }, [index, reduce, manual, progress]);
+  }, [index, reduce, manual, focused, progress]);
 
   // Quick fade when the area changes.
   useEffect(() => {
@@ -128,10 +130,23 @@ export function ScanHero() {
           <Animated.View style={{ opacity: fade, gap: space.sm }}>
             <View style={styles.cardHead}>
               <T v="small" color={colors.brandText} style={styles.kicker}>{t("sampleTitle").toUpperCase()}</T>
+              <View style={styles.headRight}>
+                {!reduce && (
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={manual ? t("playSamples") : t("pauseSamples")}
+                    onPress={() => setManual((m) => !m)}
+                    hitSlop={10}
+                    style={styles.pauseBtn}
+                  >
+                    <Icon name={manual ? "play-circle-outline" : "pause-circle-outline"} size={22} color={colors.brandText} />
+                  </Pressable>
+                )}
               <View style={[styles.pill, { backgroundColor: u.bg, borderColor: u.border }]}>
                 <T v="small" color={u.fg} style={{ fontFamily: "DMSans_700Bold", fontSize: 11, lineHeight: 14 }}>
                   {t(`urg_${active.urgency}` as TKey)}
                 </T>
+              </View>
               </View>
             </View>
             <View style={styles.titleRow}>
@@ -147,7 +162,7 @@ export function ScanHero() {
               </View>
             ))}
           </Animated.View>
-          {!reduce && !manual ? (
+          {!reduce && !manual && focused ? (
             <View style={styles.track} aria-hidden>
               <Animated.View style={[styles.fill, { transform: [{ scaleX: progress }] }]} />
             </View>
@@ -244,6 +259,8 @@ const makeStyles = () =>
     },
     cardHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: space.sm },
     kicker: { fontFamily: "DMSans_700Bold", fontSize: 10, lineHeight: 14, letterSpacing: 0.8, flexShrink: 1 },
+    headRight: { flexDirection: "row", alignItems: "center", gap: 6 },
+    pauseBtn: { width: 28, height: 28, alignItems: "center", justifyContent: "center" },
     pill: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 2 },
     titleRow: { flexDirection: "row", alignItems: "center", gap: space.sm },
     line: { flexDirection: "row", alignItems: "flex-start", gap: space.sm },

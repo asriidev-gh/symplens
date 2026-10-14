@@ -49,6 +49,37 @@ describe("emergency detection", () => {
   });
 });
 
+describe("negation handling", () => {
+  const flagged = (t: string, age: "adult" | "infant" | "newborn" = "adult") => detectEmergency([t], age);
+  it("does not raise an emergency for denied symptoms", () => {
+    expect(flagged("no chest pain, no trouble breathing").emergency).toBe(false);
+    expect(flagged("I do not have difficulty breathing").emergency).toBe(false);
+    expect(flagged("cough for a week but no chest pain").emergency).toBe(false);
+    expect(flagged("sin dolor en el pecho").emergency).toBe(false);
+    expect(flagged("yo no tengo dolor en el pecho").emergency).toBe(false);
+    expect(flagged("keine Atemnot").emergency).toBe(false);
+    expect(flagged("没有胸痛").emergency).toBe(false);
+    expect(flagged("walang sakit sa dibdib").emergency).toBe(false);
+  });
+  it("does not raise the infant or newborn fever floor for denied fever", () => {
+    expect(flagged("my baby has no fever", "infant").floor).toBe("low");
+    expect(flagged("walang lagnat", "newborn").floor).toBe("low");
+    expect(flagged("sans fièvre", "newborn").floor).toBe("low");
+    expect(flagged("sin fiebre", "newborn").floor).toBe("low");
+  });
+  it("still flags real emergencies near negators", () => {
+    expect(flagged("no relief from chest pain").emergency).toBe(true);
+    expect(flagged("no, she has chest pain").emergency).toBe(true);
+    expect(flagged("no fever but chest pain").emergency).toBe(true);
+    expect(flagged("no improvement and now chest pain").emergency).toBe(true);
+    expect(flagged("not only chest pain but dizziness").emergency).toBe(true);
+    expect(flagged("I can't breathe").emergency).toBe(true);
+    expect(flagged("he is not breathing").emergency).toBe(true);
+    expect(flagged("she stopped breathing").emergency).toBe(true);
+    expect(flagged("my baby has a fever", "newborn").floor).toBe("urgent");
+  });
+});
+
 describe("emergency detection in other languages", () => {
   const cases: [string, string][] = [
     ["es", "mi hijo no puede respirar bien"],

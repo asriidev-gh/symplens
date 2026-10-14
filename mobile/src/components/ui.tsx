@@ -291,14 +291,16 @@ export function Gap({ h = space.lg }: { h?: number }) {
 /** Created at render time so the active theme's colors are used (themes switch at runtime). */
 /** Space reserved below tab-screen content for the floating bar. */
 const TAB_BAR_SPACE = 128;
+/** Readable line length on tablets and the web preview. */
+export const MAX_CONTENT_WIDTH = 560;
 
 const makeStyles = () =>
   StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.bg },
-  content: { padding: space.xl, paddingBottom: space.xxl, gap: space.lg, flexGrow: 1 },
+  content: { padding: space.xl, paddingBottom: space.xxl, gap: space.lg, flexGrow: 1, width: "100%", maxWidth: MAX_CONTENT_WIDTH, alignSelf: "center" },
   header: { gap: space.sm },
   backBtn: { minHeight: 44, justifyContent: "center", alignSelf: "flex-start" },
-  footer: { padding: space.xl, paddingTop: space.md, gap: space.sm, backgroundColor: colors.bg },
+  footer: { padding: space.xl, paddingTop: space.md, gap: space.sm, backgroundColor: colors.bg, width: "100%", maxWidth: MAX_CONTENT_WIDTH, alignSelf: "center" },
   button: {
     minHeight: MIN_TOUCH,
     borderRadius: radius.pill,

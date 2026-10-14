@@ -36,7 +36,12 @@ Run `npm run eval` after any change to prompts, schema or safety code.
 - [ ] Native-speaker review of all translations, especially emergency/disclaimer text
 - [ ] Privacy policy and terms (the Terms screen is a placeholder); confirm Anthropic's data-retention terms
 - [ ] Test on real iOS and Android devices: camera, photo/PDF pickers, text-to-speech, dictation, PDF share sheet, maps link
-- [ ] Encrypt local history at rest; Redis-backed rate limiting if running more than one server
+- [ ] Encrypt local history at rest (Android cloud backup is already disabled)
+- [ ] Production env: `UPSTASH_REDIS_REST_*`, `TRUSTED_PROXY_HOPS`, `DAILY_*_LIMIT`; alert on `budget_80_percent` / `budget_exhausted`; spend limit on the Anthropic workspace
+- [ ] App attestation (App Attest / Play Integrity) so only the genuine app can call the API
+- [ ] Clinician-labeled real-photo evaluation across skin tones, ages and body areas (the live evals are text-only plus one synthetic image)
+- [ ] Negation handling for Japanese, Korean and Hindi emergency phrases (currently high-recall; other languages are negation-aware)
+- [ ] Regulatory review (medical-device software rules) and privacy/terms; data-processing terms with the AI provider
 - [ ] App icon / splash (currently Expo defaults; the extracted logos are ~264 px), EAS builds, store listings
 
 ## Not built yet

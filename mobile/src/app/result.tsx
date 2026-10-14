@@ -252,6 +252,12 @@ export default function Result() {
 
       <T>{a.summary}</T>
 
+      {/* The first thing a patient wants to know: how worried should I be? */}
+      <Block icon="speedometer-outline" title={rt("concernTitle")}>
+        <UrgencyBadge large urgency={urg} label={rt(`urg_${urg}` as TKey)} desc={rt(`urgDesc_${urg}` as TKey)} />
+        <T color={colors.inkSoft}>{a.urgency_reason}</T>
+      </Block>
+
       {a.progress_note ? (
         <Card style={{ backgroundColor: colors.brandSoft, borderColor: colors.brandBorder }}>
           <IconHeading icon="trending-up-outline">{rt("trackNoteTitle")}</IconHeading>
@@ -295,11 +301,6 @@ export default function Result() {
           ))}
         </Block>
       )}
-
-      <Block icon="speedometer-outline" title={rt("concernTitle")}>
-        <UrgencyBadge large urgency={urg} label={rt(`urg_${urg}` as TKey)} desc={rt(`urgDesc_${urg}` as TKey)} />
-        <T color={colors.inkSoft}>{a.urgency_reason}</T>
-      </Block>
 
       {a.red_flags.length > 0 && (
         <Block icon="warning-outline" title={rt("watchTitle")}>

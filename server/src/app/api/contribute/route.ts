@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 /** Opt-in only: the schema requires consent === true. No photo or free text is accepted. */
 async function handle(req: Request): Promise<Response> {
   try {
-    enforceLimits(req, 10, 60 * 60_000);
+    await enforceLimits(req, 10, 60 * 60_000);
     const body = await readBody(req, ContributeRequestSchema, 10_000);
     if (!dbConfigured()) throw new SafeError("unavailable", 503);
     await insertAnonymousCase(body);

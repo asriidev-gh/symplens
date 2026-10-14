@@ -11,7 +11,7 @@ import { URGENCY } from "./schema";
 const EMERGENCY_PATTERNS: { reason: string; re: RegExp }[] = [
   {
     reason: "severe breathing difficulty",
-    re: /\b(can'?t|cannot|unable to|hard to|difficulty|trouble|struggling to)\s+breath|\bgasping\b|nahihirapan(g)? huminga|hirap(ing)? huminga|di makahinga|hindi makahinga/i,
+    re: /\b(can'?t|cannot|unable to|hard to|difficulty|trouble|struggling to)\s+breath|\b(stopped|isn'?t|is not|not|no longer)\s+breathing\b|\bgasping\b|nahihirapan(g)? huminga|hirap(ing)? huminga|di makahinga|hindi makahinga/i,
   },
   {
     reason: "chest pain",
@@ -76,13 +76,43 @@ export function maxUrgency(a: Urgency, b: Urgency): Urgency {
   return URGENCY.indexOf(a) >= URGENCY.indexOf(b) ? a : b;
 }
 
+/**
+ * Negation: "no chest pain" must not raise an emergency. A match counts as denied only when a negator sits
+ * directly in front of it (at most ONE word between) inside the same clause. "no relief from chest pain" still
+ * counts (two words between), as do "no, she has chest pain" and "no fever but chest pain" (clause breaks).
+ * Postfix-negation languages (Japanese, Korean, Hindi) are deliberately NOT handled: those stay high-recall and
+ * the model adjudicates. Keep in sync with mobile/src/lib/safety.ts (a parity test enforces it).
+ */
+const NEGATORS =
+  "no|not|without|never|denies|denied|none|hindi|walang|wala|sin|ni|sans|pas|aucun|aucune|kein|keine|keinen|keiner|ohne|nicht|não|nao|sem|nenhum|nenhuma|non|senza|nessun|nessuna|tidak|tanpa|bukan|không|chẳng|нет|без|не";
+const NEG_BEFORE = new RegExp(`(?:^|[\\s(])(?:${NEGATORS})\\s+(?!only\\b)(?:\\S+\\s+)?$`, "iu");
+const NEG_BEFORE_CJK = /(?:没有|沒有|并无|无|没|未|不)[\u4e00-\u9fff]?$/u;
+const CLAUSE_BREAK = /[.,;:!?\n，。；：！？、]|\b(?:but|however|although|pero|mais|aber|tapi)\b|但是|不过|但/giu;
+
+function isNegated(text: string, index: number): boolean {
+  const upto = text.slice(Math.max(0, index - 60), index);
+  let start = 0;
+  for (const m of upto.matchAll(CLAUSE_BREAK)) start = (m.index ?? 0) + m[0].length;
+  const clause = upto.slice(start);
+  return NEG_BEFORE.test(clause) || NEG_BEFORE_CJK.test(clause);
+}
+
+/** True if `re` matches somewhere in `text` and at least one match is not negated. */
+export function hasUnnegatedMatch(text: string, re: RegExp): boolean {
+  const g = new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g");
+  for (const m of text.matchAll(g)) {
+    if (!isNegated(text, m.index ?? 0)) return true;
+  }
+  return false;
+}
+
 export function detectEmergency(texts: string[], ageGroup: AgeGroup): SafetyCheck {
   const joined = texts.join("\n").slice(0, 20_000);
-  const reasons = [...EMERGENCY_PATTERNS, ...MULTILINGUAL_EMERGENCY].filter((p) => p.re.test(joined)).map((p) => p.reason);
+  const reasons = [...EMERGENCY_PATTERNS, ...MULTILINGUAL_EMERGENCY].filter((p) => hasUnnegatedMatch(joined, p.re)).map((p) => p.reason);
   let floor: Urgency = reasons.length ? "urgent" : "low";
 
   // Fever in a newborn is treated as urgent; in a young infant, prompt review at minimum.
-  if (FEVER_RE.test(joined) || FEVER_MULTILINGUAL.test(joined)) {
+  if (hasUnnegatedMatch(joined, FEVER_RE) || hasUnnegatedMatch(joined, FEVER_MULTILINGUAL)) {
     if (ageGroup === "newborn") {
       reasons.push("fever in a newborn");
       floor = "urgent";

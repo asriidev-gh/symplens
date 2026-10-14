@@ -46,7 +46,7 @@ export default function PhotoScreen() {
       {att?.previewUri ? (
         <Image
           source={{ uri: att.previewUri }}
-          accessibilityLabel="Selected photo preview"
+          accessibilityLabel={t("photoPreview")}
           style={{ width: "100%", aspectRatio: 4 / 3, borderRadius: radius.lg, backgroundColor: colors.line }}
           resizeMode="cover"
         />

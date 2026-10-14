@@ -26,11 +26,14 @@ describe("safety rules parity (server vs mobile)", () => {
     expect(pick(mobile)).toBe(pick(server));
   });
 
-  it("has the same fever rule and urgency floors", () => {
-    const fever = (s: string) => slice(s, "const FEVER_RE", ";");
-    expect(fever(mobile)).toBe(fever(server));
-    const detect = (s: string) => slice(s, "export function detectEmergency", "\n}\n");
-    expect(detect(mobile)).toBe(detect(server));
+  it("has the same fever rule, negation handling and urgency floors", () => {
+    // Everything from the fever rule through the end of detectEmergency (includes the negation helpers).
+    const core = (s: string) => {
+      const a = s.indexOf("const FEVER_RE");
+      const b = s.indexOf("export function detectEmergency");
+      return s.slice(a, b) + slice(s.slice(b), "export function detectEmergency", "\n}\n");
+    };
+    expect(core(mobile)).toBe(core(server));
   });
 
   it("has identical multilingual emergency patterns", () => {

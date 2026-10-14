@@ -57,6 +57,8 @@ SympLens/
 ## 5. Claude integration
 `@anthropic-ai/sdk`, key in server env only. Current models reject forced `tool_choice`, so the call uses `tool_choice: auto` plus an explicit instruction, and the structured result is validated with zod (one retry). The tool schema's **first field is `response_language`**: committing to the language first keeps every text field in it (without this, Latin-script languages leaked English into the summary). User text is wrapped in `<user_input>` / `<previous_assessment>` tags and declared untrusted data. Thinking is always on for the model, so `max_tokens` leaves headroom.
 
+**Cost and speed (measured):** one analysis is about 1,400 output tokens and takes roughly 10 s; speed is set by how much the model writes, not by reasoning effort (low vs medium made no difference; `CLAUDE_EFFORT` exists but the default stays `medium`). The system prompt and tool definition (~3.5k tokens) are marked cacheable, so repeat calls read them from cache (about a quarter cheaper per call). Every model call logs token and cache counts as metadata only (`model_usage`), never content. The remaining speed lever is streaming partial results to the screen.
+
 ## 6. Structured output
 `AnalysisSchema` (`server/src/lib/schema.ts`): category, image_usable, summary, observations, possible_explanations (hedged, with confidence), urgency + reason, red_flags, next_steps, needs_follow_up + button-style follow_up_questions, limitations, optional lab_values, `questions_for_doctor`, and `progress_note` (only when an earlier check was provided).
 
@@ -68,8 +70,17 @@ SympLens/
 - **Doctor summary:** HTML → PDF (`expo-print`) → share sheet (`expo-sharing`).
 - **Find care:** opens the maps app with a localized search; SympLens never reads the user's location.
 
-## 8. Security
-HTTPS (enforce at the host) · server-side key · zod request validation · magic-byte image check · body-size limits · per-IP and per-install rate limits (in-memory: **use Redis/Upstash when running more than one instance**) · prompt-injection containment · response schema + safety validation · CORS allow-list (`CORS_ORIGINS`; localhost auto-allowed in development only) · generic client error messages.
+## 8. Security and abuse protection
+HTTPS (enforce at the host) · server-side key · zod request validation · magic-byte image check · generic client error messages · prompt-injection containment · response schema + safety validation · CORS allow-list (`CORS_ORIGINS`; localhost auto-allowed in development only).
+
+The API is unauthenticated and every model call costs money, so it is protected in layers:
+- **Per-caller limits**: by IP, by IP across all routes (4x), and by install id (a soft signal; forgeable). The IP is the address our own proxy added (`TRUSTED_PROXY_HOPS` from the **right** of `X-Forwarded-For`), because the leftmost entries are client-controlled and would let an attacker rotate fake IPs.
+- **Shared counters**: Redis via Upstash REST (`UPSTASH_REDIS_REST_URL/TOKEN`) so limits hold across instances. Without Redis (or if it is unreachable) limits fall back to per-instance memory and a warning is logged in production.
+- **Global daily budget**: `DAILY_ANALYSIS_LIMIT` / `DAILY_AUX_LIMIT` (UTC day). Logs `budget_80_percent` and `budget_exhausted`: alert on these. When exhausted the API returns 503; the on-device emergency check still works.
+- **Streamed size cap** on request bodies (chunked uploads without `content-length` are cut off at the limit).
+- **Not yet built**: app attestation (Apple App Attest / Play Integrity) to prove requests come from the genuine app. Until then, also set a spend limit on the Anthropic workspace.
+
+The server must run behind a proxy that sets `X-Forwarded-For` (Vercel, Fly, nginx, ALB). With no proxy every caller looks like "unknown" and shares one bucket.
 
 ## 9. Known gaps (see README for the release checklist)
 Clinician review of emergency phrases/prompts and native-speaker review of translations · privacy policy & terms (placeholder) · Anthropic data-retention terms · local-history encryption at rest · RTL languages (Arabic/Hebrew) · accounts, subscriptions, family profiles · embeddings + similar-case lookup (schema and opt-in endpoint exist) · real-device testing of camera, picker, PDF, TTS, dictation and the PDF share sheet.

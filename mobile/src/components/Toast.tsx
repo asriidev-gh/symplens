@@ -31,7 +31,7 @@ const dotFor = (kind: Kind): { color: string; icon: IconName } =>
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const insets = useSafeAreaInsets();
   const styles = makeStyles();
-  const { settings } = useStore();
+  const { settings, t } = useStore();
   const [osReduce, setOsReduce] = useState(false);
   const reduce = settings.reduceMotion || osReduce;
   const [toast, setToast] = useState<(Required<Pick<ToastOptions, "message" | "kind">> & { id: number }) | null>(null);
@@ -88,7 +88,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             onPress={hide}
             accessibilityRole={toast.kind === "error" ? "alert" : "text"}
             accessibilityLabel={toast.message}
-            accessibilityHint="Double tap to dismiss"
+            accessibilityHint={t("dismissHint")}
             accessibilityLiveRegion="polite"
             style={[styles.pill, shadow]}
           >

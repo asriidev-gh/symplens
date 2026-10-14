@@ -22,7 +22,8 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { fs } = useStore();
   const styles = makeStyles();
   return (
-    <View style={[styles.bar, softShadow, { bottom: Math.max(insets.bottom, 10) + 4 }]}>
+    <View style={[styles.wrap, { bottom: Math.max(insets.bottom, 10) + 4 }]} pointerEvents="box-none">
+    <View style={[styles.bar, softShadow]}>
       {state.routes.map((route, i) => {
         const focused = state.index === i;
         const label = descriptors[route.key].options.title ?? route.name;
@@ -55,6 +56,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           </Pressable>
         );
       })}
+      </View>
     </View>
   );
 }
@@ -62,10 +64,11 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 const makeStyles = () =>
   StyleSheet.create({
   // Floating glass pill: translucent so content shows through, rounded on all corners.
+  wrap: { position: "absolute", left: 0, right: 0, alignItems: "center" },
   bar: {
-    position: "absolute",
-    left: 14,
-    right: 14,
+    width: "100%",
+    maxWidth: 560,
+    marginHorizontal: 14,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.tabBar,

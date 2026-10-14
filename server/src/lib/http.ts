@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { clientKeys, rateLimit } from "./ratelimit";
+import { clientIp, consumeBudget, installId, rateLimit } from "./ratelimit";
 
 /** Error with a message that is safe to show to end users. */
 export class SafeError extends Error {
@@ -28,19 +28,52 @@ export function errorResponse(e: unknown): Response {
   return json({ error: "analysis_failed" }, 500);
 }
 
-export function enforceLimits(req: Request, limit: number, windowMs: number): void {
-  for (const key of clientKeys(req)) {
-    const r = rateLimit(`${key}:${new URL(req.url).pathname}`, limit, windowMs);
+/**
+ * Per-caller limits: by IP (the proxy-added address, not a forgeable header), by IP across all routes (4x),
+ * and by install id (a soft signal). Counters are shared across instances when Redis is configured.
+ */
+export async function enforceLimits(req: Request, limit: number, windowMs: number): Promise<void> {
+  const path = new URL(req.url).pathname;
+  const ip = clientIp(req);
+  const id = installId(req);
+  const checks = [rateLimit(`ip:${ip}:${path}`, limit, windowMs), rateLimit(`ip:${ip}:all`, limit * 4, windowMs)];
+  if (id) checks.push(rateLimit(`id:${id}:${path}`, limit, windowMs));
+  for (const r of await Promise.all(checks)) {
     if (!r.ok) throw new SafeError("rate_limited", 429, r.retryAfterSec);
   }
+}
+
+/** Global daily cap on model calls: the backstop against a runaway bill (env: DAILY_ANALYSIS_LIMIT, DAILY_AUX_LIMIT). */
+export async function enforceBudget(kind: "analysis" | "aux"): Promise<void> {
+  const limit = Number(kind === "analysis" ? process.env.DAILY_ANALYSIS_LIMIT ?? 3000 : process.env.DAILY_AUX_LIMIT ?? 6000);
+  const { ok } = await consumeBudget(kind, limit);
+  if (!ok) throw new SafeError("unavailable", 503, 3600);
+}
+
+/** Reads the body as text but stops (and rejects) as soon as it exceeds maxBytes, even without a content-length. */
+async function readCapped(req: Request, maxBytes: number): Promise<string> {
+  if (!req.body) return "";
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel().catch(() => {});
+      throw new SafeError("invalid_request", 413);
+    }
+    chunks.push(value);
+  }
+  return new TextDecoder().decode(Buffer.concat(chunks));
 }
 
 /** Reads and validates a JSON body with a hard size cap. */
 export async function readBody<T extends z.ZodType>(req: Request, schema: T, maxBytes: number): Promise<z.infer<T>> {
   const declared = Number(req.headers.get("content-length") ?? 0);
   if (declared > maxBytes) throw new SafeError("invalid_request", 413);
-  const text = await req.text();
-  if (text.length > maxBytes) throw new SafeError("invalid_request", 413);
+  const text = await readCapped(req, maxBytes);
   let raw: unknown;
   try {
     raw = JSON.parse(text);

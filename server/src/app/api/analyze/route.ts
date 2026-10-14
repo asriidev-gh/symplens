@@ -1,4 +1,4 @@
-import { assertImageMatches, enforceLimits, errorResponse, json, readBody, preflight, withCors } from "@/lib/http";
+import { assertImageMatches, enforceLimits, errorResponse, json, readBody, preflight, withCors, enforceBudget } from "@/lib/http";
 import { logEvent } from "@/lib/log";
 import { runAnalysis } from "@/lib/pipeline";
 import { AnalyzeRequestSchema } from "@/lib/schema";
@@ -11,10 +11,11 @@ const MAX_BODY = 8_000_000;
 async function handle(req: Request): Promise<Response> {
   const started = Date.now();
   try {
-    enforceLimits(req, 12, 10 * 60_000); // 12 analyses / 10 min per IP and per install
+    await enforceLimits(req, 12, 10 * 60_000); // 12 analyses / 10 min per IP and per install
     const body = await readBody(req, AnalyzeRequestSchema, MAX_BODY);
     if (body.image) assertImageMatches(body.image.mediaType, body.image.data);
     if (body.previous?.image) assertImageMatches(body.previous.image.mediaType, body.previous.image.data);
+    await enforceBudget("analysis"); // global daily spend cap
 
     const result = await runAnalysis(body);
     // Log metadata only: no content, no image, no AI output.
