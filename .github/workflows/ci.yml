@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            server/package-lock.json
+            mobile/package-lock.json
+      # The server tests import code from mobile/ (parity + encryption), so both need their dependencies.
+      - name: Install
+        run: |
+          npm ci --prefix server
+          npm ci --prefix mobile
+      - name: Server typecheck
+        run: npx tsc --noEmit
+        working-directory: server
+      - name: Server tests (safety rules, parity, abuse protection, encryption)
+        run: npm test
+        working-directory: server
+      - name: Mobile typecheck
+        run: npx tsc --noEmit
+        working-directory: mobile
+      - name: Mobile lint
+        run: npx expo lint
+        working-directory: mobile
+        env:
+          CI: "1"
+      # Live model evals (npm run eval) cost API credits, so they are run by hand before releases, not here.

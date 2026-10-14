@@ -29,7 +29,10 @@ Voice *input* needs a development build (`npx expo run:android|ios`); everything
 | `npx tsc --noEmit` | both | Typecheck | free |
 | `npx expo lint` · `npx expo-doctor` | mobile | Lint · project health | free |
 
-Run `npm run eval` after any change to prompts, schema or safety code.
+Run `npm run eval` after any change to prompts, schema or safety code. GitHub Actions (`.github/workflows/ci.yml`) runs typecheck, lint and the free tests on every push and pull request; the paid evals stay manual.
+
+## Building the app
+`mobile/eas.json` defines `development`, `preview` and `production` profiles. Replace the two `REPLACE-WITH-…` API URLs with your deployed server, then `npx eas build --profile preview --platform android`.
 
 ## Before a public release
 - [ ] Clinician review of the emergency phrases (`emergency-i18n.ts`, `safety.ts`) and the prompts
