@@ -200,6 +200,8 @@ const id: Dict = {
   themeDesc_warm: "Persik lembut dan hijau hutan",
   themeDesc_tech: "Bersih, sejuk, dan tajam",
   themeDesc_dark: "Gelap dengan cahaya neon",
+  theme_auto: "Otomatis",
+  themeDesc_auto: "Mengikuti mode terang atau gelap ponsel",
   sPrivacy: "Privasi",
   privateMode: "Mode Privat",
   privateModeDesc: "Tidak ada yang disimpan di perangkat ini setelah Anda meninggalkan hasil.",

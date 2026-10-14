@@ -199,6 +199,8 @@ const ko: Dict = {
   themeDesc_warm: "부드러운 피치와 포레스트 그린",
   themeDesc_tech: "깔끔하고 시원하고 선명하게",
   themeDesc_dark: "네온 빛이 있는 어두운 테마",
+  theme_auto: "자동",
+  themeDesc_auto: "휴대폰의 라이트/다크 설정을 따릅니다",
   sPrivacy: "개인정보",
   privateMode: "비공개 모드",
   privateModeDesc: "결과 화면을 나가면 이 기기에는 아무것도 저장되지 않습니다.",

@@ -6,6 +6,8 @@ import type { Urgency } from "@/lib/types";
  * importing them directly. Anything built with StyleSheet.create must be created at render time.
  */
 export type ThemeId = "warm" | "tech" | "dark";
+/** What the user picks: a fixed theme, or "auto" to follow the phone's light/dark setting. */
+export type ThemePref = ThemeId | "auto";
 
 export interface Palette {
   isDark: boolean;
@@ -208,6 +210,11 @@ export const colors: Palette = { ...tech };
 export const urgencyStyle: UrgencySet = { ...lightUrgency };
 export const shadow: Shadow = { ...shadows.tech.shadow };
 export const softShadow: Shadow = { ...shadows.tech.soft };
+
+/** "auto" = Minimalist Tech by day, Dark Futuristic when the phone is in dark mode. */
+export function resolveTheme(pref: ThemePref, scheme: string | null | undefined): ThemeId {
+  return pref === "auto" ? (scheme === "dark" ? "dark" : "tech") : pref;
+}
 
 export function applyTheme(id: ThemeId): void {
   const p = themes[id] ?? tech;

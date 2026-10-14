@@ -8,7 +8,7 @@ import { Button, Card, Chip, Screen, T, ToggleRow } from "@/components/ui";
 import { LANGUAGES, type TKey } from "@/i18n";
 import { LanguageSheet } from "@/components/LanguageSheet";
 import { useStore } from "@/lib/store";
-import { THEME_IDS, colors, radius, space, themes, type ThemeId } from "@/theme";
+import { THEME_IDS, colors, radius, space, themes, type ThemePref } from "@/theme";
 
 const SIZES = [
   { label: "A", scale: 1 },
@@ -29,7 +29,7 @@ export default function Settings() {
 
       <Section title={t("sTheme")}>
         <View accessibilityRole="radiogroup" style={{ gap: space.sm }}>
-          {THEME_IDS.map((id) => (
+          {(["auto", ...THEME_IDS] as ThemePref[]).map((id) => (
             <ThemeOption
               key={id}
               id={id}
@@ -122,8 +122,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 /** Shows each theme in its own colors (read from the palette, not the active theme). */
-function ThemeOption({ id, name, desc, selected, onPress }: { id: ThemeId; name: string; desc: string; selected: boolean; onPress: () => void }) {
-  const p = themes[id];
+function ThemeOption({ id, name, desc, selected, onPress }: { id: ThemePref; name: string; desc: string; selected: boolean; onPress: () => void }) {
+  const isAuto = id === "auto";
+  const p = themes[isAuto ? "tech" : id];
+  const q = themes.dark;
   return (
     <Pressable
       accessibilityRole="radio"
@@ -157,9 +159,19 @@ function ThemeOption({ id, name, desc, selected, onPress }: { id: ThemeId; name:
         }}
         aria-hidden
       >
-        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.primary }} />
-        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.brand }} />
-        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.surface, borderWidth: 1, borderColor: p.line }} />
+        {isAuto ? (
+          <>
+            <View style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "50%", backgroundColor: q.bg }} />
+            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.primary }} />
+            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: q.brand }} />
+          </>
+        ) : (
+          <>
+            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.primary }} />
+            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.brand }} />
+            <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: p.surface, borderWidth: 1, borderColor: p.line }} />
+          </>
+        )}
       </View>
       <View style={{ flex: 1 }}>
         <T v="label">{name}</T>

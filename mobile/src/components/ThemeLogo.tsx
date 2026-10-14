@@ -15,8 +15,8 @@ export const LOGOS = {
 
 /** Full-art logo for the active theme (used big, on the brand splash). */
 export function LogoArt({ size }: { size: number }) {
-  const { settings } = useStore();
-  return <Image source={LOGOS[settings.theme]} style={{ width: size, height: size }} resizeMode="contain" />;
+  const { activeTheme } = useStore();
+  return <Image source={LOGOS[activeTheme]} style={{ width: size, height: size }} resizeMode="contain" />;
 }
 
 /**

@@ -200,6 +200,8 @@ const de: Dict = {
   themeDesc_warm: "Sanftes Pfirsich und Waldgrün",
   themeDesc_tech: "Klar, kühl und präzise",
   themeDesc_dark: "Dunkel mit Neon-Glanz",
+  theme_auto: "Automatisch",
+  themeDesc_auto: "Folgt dem hellen oder dunklen Modus des Telefons",
   sPrivacy: "Datenschutz",
   privateMode: "Privater Modus",
   privateModeDesc: "Nach dem Verlassen eines Ergebnisses wird nichts auf diesem Gerät gespeichert.",

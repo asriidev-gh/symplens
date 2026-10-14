@@ -250,6 +250,8 @@ const fil: Dict = {
   themeDesc_warm: "Malambot na peach at berde",
   themeDesc_tech: "Malinis at presko",
   themeDesc_dark: "Madilim na may kumikinang na accent",
+  theme_auto: "Awtomatiko",
+  themeDesc_auto: "Sumusunod sa light o dark setting ng phone mo",
   sPrivacy: "Privacy",
   privateMode: "Private Mode",
   privateModeDesc: "Walang mase-save sa device na ito pagkatapos mong umalis sa resulta.",

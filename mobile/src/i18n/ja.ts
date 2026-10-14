@@ -199,6 +199,8 @@ const ja: Dict = {
   themeDesc_warm: "やわらかなピーチとフォレストグリーン",
   themeDesc_tech: "すっきり、クールで端正",
   themeDesc_dark: "ネオンの輝きを持つダーク",
+  theme_auto: "自動",
+  themeDesc_auto: "端末のライト/ダーク設定に合わせます",
   sPrivacy: "プライバシー",
   privateMode: "プライベートモード",
   privateModeDesc: "結果画面を離れると、この端末には何も保存されません。",

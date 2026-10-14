@@ -201,6 +201,8 @@ const hi: Dict = {
   themeDesc_warm: "हल्का पीच और जंगल जैसा हरा",
   themeDesc_tech: "साफ़, ठंडा और तीखा",
   themeDesc_dark: "नियॉन चमक के साथ गहरा",
+  theme_auto: "स्वचालित",
+  themeDesc_auto: "फ़ोन की लाइट या डार्क सेटिंग का पालन करता है",
   sPrivacy: "गोपनीयता",
   privateMode: "निजी मोड",
   privateModeDesc: "परिणाम से बाहर निकलने के बाद इस डिवाइस पर कुछ नहीं सहेजा जाता।",

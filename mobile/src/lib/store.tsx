@@ -1,18 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getLocales } from "expo-localization";
+import { useColorScheme } from "react-native";
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { translate, type TKey } from "@/i18n";
-import { applyTheme, type ThemeId } from "@/theme";
+import { applyTheme, resolveTheme, type ThemeId, type ThemePref } from "@/theme";
 import { deleteAllPhotos, deletePhoto } from "./photos";
+import { StorageLockedError, destroyKey, readSecure, writeSecure } from "./secureStorage";
 import { LOCALES, type HistoryEntry, type Locale } from "./types";
 
 /**
  * Local-first storage. Everything here lives only on the device (AsyncStorage inside the app sandbox).
- * Photos are never written here. For production, consider encrypting at rest.
+ * Photos are never written here. History is encrypted at rest (see secureStorage.ts); settings are not health data.
  */
 export interface Settings {
   locale: Locale;
-  theme: ThemeId;
+  theme: ThemePref;
   textScale: number;
   privateMode: boolean;
   historyEnabled: boolean;
@@ -49,6 +51,8 @@ function defaultSettings(): Settings {
 interface Store {
   ready: boolean;
   settings: Settings;
+  /** the theme actually in use (resolves "auto" from the phone's light/dark setting) */
+  activeTheme: ThemeId;
   history: HistoryEntry[];
   /** history is actually written only when enabled and not in Private Mode */
   savesHistory: boolean;
@@ -74,22 +78,38 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     settingsRef.current = settings;
   }, [settings]);
 
+  // Writes are queued so an older write can never land after a newer one.
+  const writeQueue = useRef<Promise<void>>(Promise.resolve());
+  const historyLockedRef = useRef(false);
+  const persistHistory = useCallback((next: HistoryEntry[]) => {
+    if (historyLockedRef.current) return;
+    const json = JSON.stringify(next);
+    writeQueue.current = writeQueue.current.then(() => writeSecure(HISTORY_KEY, json)).catch(() => {});
+  }, []);
+
   useEffect(() => {
     (async () => {
       try {
-        const [s, h] = await Promise.all([AsyncStorage.getItem(SETTINGS_KEY), AsyncStorage.getItem(HISTORY_KEY)]);
+        const s = await AsyncStorage.getItem(SETTINGS_KEY);
         if (s) setSettings((cur) => ({ ...cur, ...JSON.parse(s) }));
-        if (h) setHistory(JSON.parse(h));
       } catch {
-        /* corrupted or unavailable storage: start fresh */
+        /* corrupted or unavailable settings: use defaults */
+      }
+      try {
+        const { text, needsMigration } = await readSecure(HISTORY_KEY);
+        if (text) {
+          const loaded = JSON.parse(text) as HistoryEntry[];
+          setHistory(loaded);
+          if (needsMigration) persistHistory(loaded); // older plain-text history: re-save it encrypted
+        }
+      } catch (e) {
+        // Encrypted but the key is temporarily unavailable: show nothing and do NOT overwrite what is stored.
+        if (e instanceof StorageLockedError) historyLockedRef.current = true;
       }
       setReady(true);
     })();
-  }, []);
+  }, [persistHistory]);
 
-  const persistHistory = useCallback((next: HistoryEntry[]) => {
-    AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(next)).catch(() => {});
-  }, []);
 
   const update = useCallback((patch: Partial<Settings>) => {
     const next = { ...settingsRef.current, ...patch };
@@ -98,7 +118,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Apply before children render so every consumer reads the new palette in the same pass.
-  applyTheme(settings.theme);
+  const scheme = useColorScheme();
+  const activeTheme = resolveTheme(settings.theme, scheme);
+  applyTheme(activeTheme);
 
   const savesHistory = settings.historyEnabled && !settings.privateMode;
 
@@ -150,6 +172,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const deleteAllData = useCallback(async () => {
     deleteAllPhotos();
     setHistory([]);
+    await writeQueue.current.catch(() => {}); // let any in-flight write finish first, so it cannot recreate the data
+    await destroyKey();
+    historyLockedRef.current = false;
     const fresh = { ...defaultSettings(), onboarded: true, locale: settingsRef.current.locale, theme: settingsRef.current.theme };
     setSettings(fresh);
     try {
@@ -164,6 +189,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     () => ({
       ready,
       settings,
+      activeTheme,
       history,
       savesHistory,
       t: (key) => translate(settings.locale, key),
@@ -175,7 +201,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       clearHistory,
       deleteAllData,
     }),
-    [ready, settings, history, savesHistory, update, addHistory, removeHistory, updateHistory, clearHistory, deleteAllData],
+    [ready, settings, activeTheme, history, savesHistory, update, addHistory, removeHistory, updateHistory, clearHistory, deleteAllData],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

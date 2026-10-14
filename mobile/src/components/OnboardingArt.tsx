@@ -112,8 +112,7 @@ const Brackets = ({ size, color }: { size: number; color: string }) => {
 /* ------------------------------- stage backdrop ------------------------------- */
 
 function Stage({ children }: { children: React.ReactNode }) {
-  const { settings } = useStore();
-  const theme = settings.theme;
+  const { activeTheme: theme } = useStore();
   const grid = [];
   for (let i = 1; i < 8; i++) {
     const p = (SIZE / 8) * i;
@@ -362,8 +361,7 @@ const styles = StyleSheet.create({
 /* ------------------------------- brand splash (step 0) ------------------------------- */
 
 function BrandBackdrop() {
-  const { settings } = useStore();
-  const theme = settings.theme;
+  const { activeTheme: theme } = useStore();
   const W = 400;
   const H = 760;
   const lines = [];
@@ -405,8 +403,8 @@ function BrandBackdrop() {
 }
 
 function Wordmark() {
-  const { settings, fs } = useStore();
-  const theme = settings.theme;
+  const { fs } = useStore();
+  const { activeTheme: theme } = useStore();
   const dark = theme === "dark";
   return (
     <View style={{ flexDirection: "row", alignItems: "flex-start" }} accessible accessibilityRole="header" accessibilityLabel="SympLens">
@@ -438,8 +436,8 @@ function Wordmark() {
 export function BrandSplash({ active }: { active: boolean }) {
   const reduce = useReduceMotion();
   const run = active && !reduce;
-  const { settings, t } = useStore();
-  const theme = settings.theme;
+  const { t } = useStore();
+  const { activeTheme: theme } = useStore();
   const glow = useLoop(run, (x) =>
     Animated.sequence([
       Animated.timing(x, { toValue: 1, duration: 1800, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),

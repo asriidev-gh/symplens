@@ -200,6 +200,8 @@ const vi: Dict = {
   themeDesc_warm: "Hồng đào dịu và xanh rừng",
   themeDesc_tech: "Sạch sẽ, mát mẻ, sắc nét",
   themeDesc_dark: "Tối với ánh neon",
+  theme_auto: "Tự động",
+  themeDesc_auto: "Theo chế độ sáng hoặc tối của điện thoại",
   sPrivacy: "Quyền riêng tư",
   privateMode: "Chế độ riêng tư",
   privateModeDesc: "Không có gì được lưu trên thiết bị này sau khi bạn rời khỏi kết quả.",

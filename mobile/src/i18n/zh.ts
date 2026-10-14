@@ -199,6 +199,8 @@ const zh: Dict = {
   themeDesc_warm: "柔和蜜桃与森林绿",
   themeDesc_tech: "简洁、清爽、利落",
   themeDesc_dark: "深色带霓虹光晕",
+  theme_auto: "自动",
+  themeDesc_auto: "跟随手机的浅色或深色模式",
   sPrivacy: "隐私",
   privateMode: "隐私模式",
   privateModeDesc: "离开结果页后，不会在此设备上保存任何内容。",

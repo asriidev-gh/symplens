@@ -260,6 +260,8 @@ const en = {
   themeDesc_warm: "Soft peach and forest green",
   themeDesc_tech: "Clean, cool and crisp",
   themeDesc_dark: "Dark with a neon glow",
+  theme_auto: "Automatic",
+  themeDesc_auto: "Follows your phone's light or dark setting",
   sPrivacy: "Privacy",
   privateMode: "Private Mode",
   privateModeDesc: "Nothing is saved on this device after you leave a result.",
