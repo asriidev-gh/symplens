@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "SympLens",
+    "slug": "symplens",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.symplens.mobile",
+      "infoPlist": {
+        "NSCameraUsageDescription": "SympLens uses the camera so you can photograph a symptom. Photos are only sent for analysis when you tap Analyze.",
+        "NSPhotoLibraryUsageDescription": "Choose a photo to analyze. It is only sent when you tap Analyze.",
+        "NSMicrophoneUsageDescription": "Used for voice input when you choose to dictate a description.",
+        "NSSpeechRecognitionUsageDescription": "Used to turn your voice into text when you choose to dictate."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "app.symplens.mobile",
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      "expo-speech-recognition",
+      "expo-font",
+      "expo-sharing"
+    ],
+    "scheme": "symplens",
+    "extra": {}
+  }
+}

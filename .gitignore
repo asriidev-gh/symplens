@@ -1,0 +1,19 @@
+# dependencies & build output
+node_modules/
+.next/
+.expo/
+dist/
+web-build/
+*.tsbuildinfo
+next-env.d.ts
+
+# secrets: never commit
+.env
+.env.*
+!.env.example
+
+# editor / OS / local tooling
+.DS_Store
+Thumbs.db
+.playwright-mcp/
+.claude/settings.local.json
