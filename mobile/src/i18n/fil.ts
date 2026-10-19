@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const fil: Dict = {
   appName: "SympLens",
-  descriptor: "AI Symptoms Analyzer",
+  descriptor: "AI Impormasyon sa Balat",
   tagline: "Tingnan. Unawain. Alamin ang susunod na gagawin.",
   continue: "Magpatuloy",
   back: "Bumalik",
@@ -20,9 +20,9 @@ const fil: Dict = {
   tabSafety: "Safety",
 
   ob1t: "Kilalanin ang SympLens",
-  ob1b: "Mga AI-powered na impormasyon tungkol sa kalusugan, mula sa nakikita at nararamdaman mo.",
+  ob1b: "AI na impormasyon sa balat mula sa nakikita mo.",
   ob2t: "Kumuha ng litrato",
-  ob2b: "Ipakita ang nakikitang sintomas na ikinababahala mo.",
+  ob2b: "Ipakita ang problema sa balat na gusto mong maintindihan.",
   ob3t: "Sabihin kung ano ang nangyayari",
   ob3b: "Ang ilang simpleng tanong ay makakatulong para mas maging kapaki-pakinabang ang paliwanag.",
   ob4t: "Una ang privacy",
@@ -44,8 +44,8 @@ const fil: Dict = {
   area_feet: "Paa",
   homeHeadline: "Ano ang ikinababahala mo?",
   homeSub: "Kumuha ng litrato o sabihin sa SympLens kung ano ang nangyayari.",
-  analyzeSymptom: "Suriin ang Sintomas",
-  describeSymptom: "Ilarawan ang Sintomas",
+  analyzeSymptom: "I-analyze ang Larawan ng Balat",
+  describeSymptom: "Ilarawan ang Problema sa Balat",
   analyzeReport: "Suriin ang Medical Report",
   recent: "Mga Huling Pagsusuri",
   noRecent: "Dito lalabas ang mga pagsusuri mo.",
@@ -96,7 +96,7 @@ const fil: Dict = {
 
   describeTitle: "Ano ang nararanasan mo?",
   describeHint: "Sapat na ang ilang salita. Puwede ka ring gumamit ng boses.",
-  describePlaceholder: "Halimbawa: inuubo na ng 7 araw, walang lagnat…",
+  describePlaceholder: "Halimbawa: makating pulang batik sa braso sa loob ng 7 araw…",
   durationTitle: "Gaano na katagal ito?",
   dur_today: "Ngayong araw",
   dur_few_days: "Ilang araw",
@@ -116,7 +116,7 @@ const fil: Dict = {
   openDialer: "Buksan ang phone dialer",
   emergencyKeepGoing: "Puwede ka pa ring magpatuloy, pero humingi muna ng tulong.",
 
-  processingTitle: "Sinusuri ang sintomas mo…",
+  processingTitle: "Ina-analyze ang larawan ng balat mo…",
   step1: "Tinitingnan ang mga nakikitang detalye",
   step2: "Binabasa ang mga sintomas mo",
   step3: "Naghahanap ng mga babalang senyales",
@@ -253,8 +253,8 @@ const fil: Dict = {
   theme_auto: "Awtomatiko",
   themeDesc_auto: "Sumusunod sa light o dark setting ng phone mo",
   paywallTitle: "I-unlock ang SympLens",
-  paywallSub: "Mag-explore nang libre. Kailangan ng yearly plan para mag-analyze ng sintomas, larawan at report.",
-  paywallB1: "Mag-analyze ng sintomas, larawan at medical report",
+  paywallSub: "Mag-explore nang libre. Kailangan ng yearly plan para mag-analyze ng mga larawan ng balat.",
+  paywallB1: "Mag-analyze ng mga larawan at problema sa balat",
   paywallB2: "Resulta sa 14 na wika, may pagsasalin",
   paywallB3: "Subaybayan ang pagbabago at magbahagi ng buod sa doktor mo",
   paywallB4: "Naka-encrypt sa device mo ang history mo",
@@ -292,7 +292,7 @@ const fil: Dict = {
   limitations: "Mga limitasyon ng AI",
   disclaimer: "Medical disclaimer",
   aboutBody:
-    "Ang SympLens ay isang AI tool para sa impormasyon tungkol sa kalusugan. Tinutulungan ka nitong maunawaan ang nakikita at nararamdaman mo, ipinapaliwanag ang mga posibleng dahilan, itinuturo ang mga babalang senyales at nagmumungkahi ng susunod na hakbang.",
+    "Ang SympLens ay AI tool ng impormasyon sa balat para sa edukasyon. Inilalarawan nito ang nakikita, ipinapaliwanag ang mga kondisyong maaaring magkamukha, itinuturo ang mga babalang senyales, at nagmumungkahi ng susunod na hakbang. Balat, kuko, buhok at anit lang ang saklaw nito.",
   limitationsBody:
     "Puwedeng magkamali ang AI. Maraming kondisyon ang hindi matutukoy sa litrato lang, kasama ang mga problema sa loob ng katawan at ang mga nangangailangan ng pisikal na eksaminasyon, lab test o imaging. Hindi nagpapakita ang SympLens ng accuracy percentage dahil wala pang napatunayan.",
   disclaimerBody:

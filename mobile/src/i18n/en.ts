@@ -1,6 +1,6 @@
 const en = {
   appName: "SympLens",
-  descriptor: "AI Symptoms Analyzer",
+  descriptor: "AI Skin Information",
   tagline: "See it. Understand it. Know what to do next.",
   continue: "Continue",
   back: "Back",
@@ -20,9 +20,9 @@ const en = {
 
   // Onboarding
   ob1t: "Meet SympLens",
-  ob1b: "AI-powered health insights from what you see and feel.",
+  ob1b: "AI-powered skin information from what you see.",
   ob2t: "Take a photo",
-  ob2b: "Show us a visible symptom you're concerned about.",
+  ob2b: "Show us a skin concern you'd like to understand.",
   ob3t: "Tell us what's happening",
   ob3b: "A few simple questions help us give you a more useful explanation.",
   ob4t: "Privacy comes first",
@@ -45,8 +45,8 @@ const en = {
   // Home
   homeHeadline: "What are you concerned about?",
   homeSub: "Take a photo or tell SympLens what's happening.",
-  analyzeSymptom: "Analyze a Symptom",
-  describeSymptom: "Describe a Symptom",
+  analyzeSymptom: "Analyze a Skin Photo",
+  describeSymptom: "Describe a Skin Concern",
   analyzeReport: "Analyze a Medical Report",
   recent: "Recent Analyses",
   noRecent: "Your analyses will appear here.",
@@ -100,7 +100,7 @@ const en = {
   // Describe
   describeTitle: "What are you experiencing?",
   describeHint: "A few words are enough. You can also use your voice.",
-  describePlaceholder: "For example: cough for 7 days, no fever…",
+  describePlaceholder: "For example: itchy red patch on my arm for 7 days…",
   durationTitle: "How long has this been happening?",
   dur_today: "Today",
   dur_few_days: "A few days",
@@ -122,7 +122,7 @@ const en = {
   emergencyKeepGoing: "You can still continue, but please get help first.",
 
   // Processing
-  processingTitle: "Analyzing your symptom…",
+  processingTitle: "Analyzing your skin photo…",
   step1: "Looking at visible features",
   step2: "Reviewing your symptoms",
   step3: "Checking for warning signs",
@@ -263,8 +263,8 @@ const en = {
   theme_auto: "Automatic",
   themeDesc_auto: "Follows your phone's light or dark setting",
   paywallTitle: "Unlock SympLens",
-  paywallSub: "Look around freely. A yearly plan is needed to analyze symptoms, photos and reports.",
-  paywallB1: "Analyze symptoms, photos and medical reports",
+  paywallSub: "Look around freely. A yearly plan is needed to analyze skin photos.",
+  paywallB1: "Analyze skin photos and concerns",
   paywallB2: "Results in 14 languages, with translation",
   paywallB3: "Track changes over time and share a summary with your doctor",
   paywallB4: "Your history stays encrypted on your device",
@@ -302,7 +302,7 @@ const en = {
   limitations: "AI limitations",
   disclaimer: "Medical disclaimer",
   aboutBody:
-    "SympLens is an AI health-information tool. It helps you understand what you see and feel, explains possible causes, highlights warning signs and suggests next steps.",
+    "SympLens is an AI skin-information tool for education. It describes what is visible, explains conditions that can look similar, highlights warning signs and suggests next steps. It covers skin, nails, hair and scalp only.",
   limitationsBody:
     "AI can make mistakes. Many conditions can't be judged from a photo, including internal problems and anything that needs a physical exam, lab tests or imaging. SympLens does not show accuracy percentages because none have been validated.",
   disclaimerBody:

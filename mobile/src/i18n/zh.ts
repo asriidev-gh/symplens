@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const zh: Dict = {
   appName: "SympLens",
-  descriptor: "AI 症状分析器",
+  descriptor: "AI 皮肤信息",
   tagline: "看见它，了解它，知道下一步该怎么做。",
   continue: "继续", back: "返回", cancel: "取消", delete: "删除", done: "完成",
   tryAgain: "重试", skip: "跳过", share: "分享",
@@ -10,9 +10,9 @@ const zh: Dict = {
   tabHome: "首页", tabAnalyze: "分析", tabHistory: "历史", tabSettings: "设置", tabSafety: "安全",
 
   ob1t: "认识 SympLens",
-  ob1b: "根据你看到和感受到的，提供由 AI 驱动的健康信息。",
+  ob1b: "根据你所看到的情况，提供 AI 皮肤信息。",
   ob2t: "拍一张照片",
-  ob2b: "向我们展示你担心的可见症状。",
+  ob2b: "向我们展示你想了解的皮肤问题。",
   ob3t: "告诉我们发生了什么",
   ob3b: "几个简单的问题能帮助我们给出更有用的解释。",
   ob4t: "隐私优先",
@@ -27,8 +27,8 @@ const zh: Dict = {
 
   homeHeadline: "你在担心什么？",
   homeSub: "拍张照片，或告诉 SympLens 发生了什么。",
-  analyzeSymptom: "分析症状",
-  describeSymptom: "描述症状",
+  analyzeSymptom: "分析皮肤照片",
+  describeSymptom: "描述皮肤问题",
   analyzeReport: "分析医疗报告",
   recent: "最近的分析",
   noRecent: "你的分析会显示在这里。",
@@ -64,7 +64,7 @@ const zh: Dict = {
 
   describeTitle: "你有什么不适？",
   describeHint: "几个词就够了，也可以使用语音。",
-  describePlaceholder: "例如：咳嗽 7 天，没有发烧……",
+  describePlaceholder: "例如：手臂上有一块发痒的红斑，已经 7 天…",
   durationTitle: "这种情况持续多久了？",
   dur_today: "今天", dur_few_days: "几天", dur_one_two_weeks: "1–2 周",
   dur_over_month: "超过一个月", dur_unsure: "不确定",
@@ -78,7 +78,7 @@ const zh: Dict = {
   openDialer: "打开拨号盘",
   emergencyKeepGoing: "你仍可继续，但请先寻求帮助。",
 
-  processingTitle: "正在分析你的症状……",
+  processingTitle: "正在分析你的皮肤照片…",
   step1: "查看可见特征",
   step2: "回顾你的症状",
   step3: "检查警示信号",
@@ -202,8 +202,8 @@ const zh: Dict = {
   theme_auto: "自动",
   themeDesc_auto: "跟随手机的浅色或深色模式",
   paywallTitle: "解锁 SympLens",
-  paywallSub: "可以先随意浏览。分析症状、照片和报告需要年度订阅。",
-  paywallB1: "分析症状、照片和医疗报告",
+  paywallSub: "可以先随意浏览。分析皮肤照片需要年度订阅。",
+  paywallB1: "分析皮肤照片和皮肤问题",
   paywallB2: "支持 14 种语言的结果与翻译",
   paywallB3: "跟踪变化，并与医生分享摘要",
   paywallB4: "你的历史记录在设备上加密保存",
@@ -241,7 +241,7 @@ const zh: Dict = {
   limitations: "AI 的局限性",
   disclaimer: "医疗免责声明",
   aboutBody:
-    "SympLens 是一款 AI 健康信息工具。它帮助你理解所见所感，解释可能的原因，提示警示信号，并建议下一步。",
+    "SympLens 是一款用于教育的 AI 皮肤信息工具。它描述可见的情况，解释外观可能相似的病症，提示警示信号，并建议下一步做法。仅涵盖皮肤、指甲、头发和头皮。",
   limitationsBody:
     "AI 可能出错。许多情况无法仅凭照片判断，包括内部问题以及需要体格检查、化验或影像检查的情况。SympLens 不显示准确率百分比，因为尚未经过验证。",
   disclaimerBody:

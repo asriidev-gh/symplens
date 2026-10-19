@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const ko: Dict = {
   appName: "SympLens",
-  descriptor: "AI 증상 분석기",
+  descriptor: "AI 피부 정보",
   tagline: "보고, 이해하고, 다음에 할 일을 알아보세요.",
   continue: "계속", back: "뒤로", cancel: "취소", delete: "삭제", done: "완료",
   tryAgain: "다시 시도", skip: "건너뛰기", share: "공유",
@@ -10,9 +10,9 @@ const ko: Dict = {
   tabHome: "홈", tabAnalyze: "분석", tabHistory: "기록", tabSettings: "설정", tabSafety: "안전",
 
   ob1t: "SympLens를 만나보세요",
-  ob1b: "보고 느끼는 것을 바탕으로 AI가 건강 정보를 알려드립니다.",
+  ob1b: "보이는 모습을 바탕으로 한 AI 피부 정보.",
   ob2t: "사진 찍기",
-  ob2b: "걱정되는 눈에 보이는 증상을 보여 주세요.",
+  ob2b: "이해하고 싶은 피부 고민을 보여 주세요.",
   ob3t: "어떤 상황인지 알려 주세요",
   ob3b: "간단한 질문 몇 가지로 더 유용한 설명을 드릴 수 있습니다.",
   ob4t: "개인정보 보호가 우선입니다",
@@ -27,8 +27,8 @@ const ko: Dict = {
 
   homeHeadline: "무엇이 걱정되시나요?",
   homeSub: "사진을 찍거나 SympLens에 상황을 알려 주세요.",
-  analyzeSymptom: "증상 분석",
-  describeSymptom: "증상 설명",
+  analyzeSymptom: "피부 사진 분석",
+  describeSymptom: "피부 고민 설명",
   analyzeReport: "의료 보고서 분석",
   recent: "최근 분석",
   noRecent: "분석 내용이 여기에 표시됩니다.",
@@ -64,7 +64,7 @@ const ko: Dict = {
 
   describeTitle: "어떤 증상이 있나요?",
   describeHint: "몇 마디면 충분합니다. 음성도 사용할 수 있어요.",
-  describePlaceholder: "예: 기침이 7일째, 열은 없음…",
+  describePlaceholder: "예: 팔에 가려운 붉은 반점이 7일째 있어요…",
   durationTitle: "얼마나 오래 됐나요?",
   dur_today: "오늘", dur_few_days: "며칠", dur_one_two_weeks: "1–2주",
   dur_over_month: "한 달 이상", dur_unsure: "잘 모르겠음",
@@ -78,7 +78,7 @@ const ko: Dict = {
   openDialer: "전화 앱 열기",
   emergencyKeepGoing: "계속 진행할 수는 있지만 먼저 도움을 요청하세요.",
 
-  processingTitle: "증상을 분석하는 중…",
+  processingTitle: "피부 사진을 분석하는 중…",
   step1: "눈에 보이는 특징을 살펴보는 중",
   step2: "증상을 검토하는 중",
   step3: "위험 신호를 확인하는 중",
@@ -202,8 +202,8 @@ const ko: Dict = {
   theme_auto: "자동",
   themeDesc_auto: "휴대폰의 라이트/다크 설정을 따릅니다",
   paywallTitle: "SympLens 잠금 해제",
-  paywallSub: "자유롭게 둘러보세요. 증상, 사진, 보고서를 분석하려면 연간 플랜이 필요합니다.",
-  paywallB1: "증상, 사진, 의료 보고서 분석",
+  paywallSub: "자유롭게 둘러보세요. 피부 사진을 분석하려면 연간 플랜이 필요합니다.",
+  paywallB1: "피부 사진과 피부 고민 분석",
   paywallB2: "14개 언어 결과 및 번역",
   paywallB3: "시간에 따른 변화를 기록하고 의사에게 요약 공유",
   paywallB4: "기록은 기기에서 암호화되어 보관됩니다",
@@ -241,7 +241,7 @@ const ko: Dict = {
   limitations: "AI의 한계",
   disclaimer: "의료 면책 고지",
   aboutBody:
-    "SympLens는 AI 건강 정보 도구입니다. 보고 느끼는 것을 이해하고, 가능한 원인을 설명하고, 주의 신호를 알려 주며, 다음 단계를 제안합니다.",
+    "SympLens는 교육 목적의 AI 피부 정보 도구입니다. 보이는 모습을 설명하고, 비슷해 보일 수 있는 상태를 알려 주며, 주의해야 할 신호와 다음 단계를 안내합니다. 피부, 손발톱, 모발, 두피만 다룹니다.",
   limitationsBody:
     "AI는 실수할 수 있습니다. 내부 문제나 신체 진찰, 검사, 영상 촬영이 필요한 경우처럼 사진만으로 판단할 수 없는 상태가 많습니다. 검증된 정확도가 없어 SympLens는 정확도 수치를 표시하지 않습니다.",
   disclaimerBody:

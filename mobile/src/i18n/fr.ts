@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const fr: Dict = {
   appName: "SympLens",
-  descriptor: "Analyseur de symptômes par IA",
+  descriptor: "Information cutanée par IA",
   tagline: "Voyez. Comprenez. Sachez quoi faire ensuite.",
   continue: "Continuer", back: "Retour", cancel: "Annuler", delete: "Supprimer", done: "Terminé",
   tryAgain: "Réessayer", skip: "Passer", share: "Partager",
@@ -10,9 +10,9 @@ const fr: Dict = {
   tabHome: "Accueil", tabAnalyze: "Analyser", tabHistory: "Historique", tabSettings: "Réglages", tabSafety: "Sécurité",
 
   ob1t: "Découvrez SympLens",
-  ob1b: "Des informations de santé par IA à partir de ce que vous voyez et ressentez.",
+  ob1b: "Des informations sur la peau, par IA, à partir de ce que vous voyez.",
   ob2t: "Prenez une photo",
-  ob2b: "Montrez-nous un symptôme visible qui vous inquiète.",
+  ob2b: "Montrez-nous un problème de peau que vous aimeriez comprendre.",
   ob3t: "Dites-nous ce qui se passe",
   ob3b: "Quelques questions simples nous aident à vous donner une explication plus utile.",
   ob4t: "La confidentialité d'abord",
@@ -27,8 +27,8 @@ const fr: Dict = {
 
   homeHeadline: "Qu'est-ce qui vous inquiète ?",
   homeSub: "Prenez une photo ou dites à SympLens ce qui se passe.",
-  analyzeSymptom: "Analyser un symptôme",
-  describeSymptom: "Décrire un symptôme",
+  analyzeSymptom: "Analyser une photo de peau",
+  describeSymptom: "Décrire un problème de peau",
   analyzeReport: "Analyser un rapport médical",
   recent: "Analyses récentes",
   noRecent: "Vos analyses apparaîtront ici.",
@@ -64,7 +64,7 @@ const fr: Dict = {
 
   describeTitle: "Que ressentez-vous ?",
   describeHint: "Quelques mots suffisent. Vous pouvez aussi utiliser la voix.",
-  describePlaceholder: "Par exemple : toux depuis 7 jours, pas de fièvre…",
+  describePlaceholder: "Par exemple : plaque rouge qui démange sur le bras depuis 7 jours…",
   durationTitle: "Depuis combien de temps ?",
   dur_today: "Aujourd'hui", dur_few_days: "Depuis quelques jours", dur_one_two_weeks: "1–2 semaines",
   dur_over_month: "Plus d'un mois", dur_unsure: "Je ne sais pas",
@@ -78,7 +78,7 @@ const fr: Dict = {
   openDialer: "Ouvrir le clavier téléphonique",
   emergencyKeepGoing: "Vous pouvez continuer, mais demandez d'abord de l'aide.",
 
-  processingTitle: "Analyse de votre symptôme…",
+  processingTitle: "Analyse de votre photo de peau…",
   step1: "Examen des caractéristiques visibles",
   step2: "Revue de vos symptômes",
   step3: "Recherche de signes d'alerte",
@@ -203,8 +203,8 @@ const fr: Dict = {
   theme_auto: "Automatique",
   themeDesc_auto: "Suit le mode clair ou sombre du téléphone",
   paywallTitle: "Débloquer SympLens",
-  paywallSub: "Explorez librement. Un abonnement annuel est nécessaire pour analyser symptômes, photos et rapports.",
-  paywallB1: "Analysez symptômes, photos et rapports médicaux",
+  paywallSub: "Explorez librement. Un abonnement annuel est nécessaire pour analyser des photos de peau.",
+  paywallB1: "Analysez des photos et des problèmes de peau",
   paywallB2: "Résultats en 14 langues, avec traduction",
   paywallB3: "Suivez l'évolution et partagez un résumé avec votre médecin",
   paywallB4: "Votre historique reste chiffré sur votre appareil",
@@ -242,7 +242,7 @@ const fr: Dict = {
   limitations: "Limites de l'IA",
   disclaimer: "Avertissement médical",
   aboutBody:
-    "SympLens est un outil d'information de santé par IA. Il vous aide à comprendre ce que vous voyez et ressentez, explique les causes possibles, signale les signes d'alerte et suggère les prochaines étapes.",
+    "SympLens est un outil d'information sur la peau par IA, à visée éducative. Il décrit ce qui est visible, explique des affections qui peuvent se ressembler, signale les signes d'alerte et suggère les prochaines étapes. Il ne couvre que la peau, les ongles, les cheveux et le cuir chevelu.",
   limitationsBody:
     "L'IA peut se tromper. De nombreuses affections ne peuvent pas être évaluées à partir d'une photo, notamment les problèmes internes et tout ce qui nécessite un examen physique, des analyses ou de l'imagerie. SympLens n'affiche pas de pourcentages de précision, car aucun n'a été validé.",
   disclaimerBody:

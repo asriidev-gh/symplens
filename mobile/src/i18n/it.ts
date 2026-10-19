@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const it: Dict = {
   appName: "SympLens",
-  descriptor: "Analizzatore di sintomi con IA",
+  descriptor: "Informazioni sulla pelle con IA",
   tagline: "Guarda. Capisci. Sai cosa fare dopo.",
   continue: "Continua", back: "Indietro", cancel: "Annulla", delete: "Elimina", done: "Fatto",
   tryAgain: "Riprova", skip: "Salta", share: "Condividi",
@@ -10,9 +10,9 @@ const it: Dict = {
   tabHome: "Home", tabAnalyze: "Analizza", tabHistory: "Cronologia", tabSettings: "Impostazioni", tabSafety: "Sicurezza",
 
   ob1t: "Scopri SympLens",
-  ob1b: "Informazioni sulla salute con l'IA, a partire da ciò che vedi e senti.",
+  ob1b: "Informazioni sulla pelle con IA a partire da ciò che vedi.",
   ob2t: "Scatta una foto",
-  ob2b: "Mostraci un sintomo visibile che ti preoccupa.",
+  ob2b: "Mostraci un problema della pelle che vuoi capire meglio.",
   ob3t: "Raccontaci cosa succede",
   ob3b: "Poche domande semplici ci aiutano a darti una spiegazione più utile.",
   ob4t: "La privacy viene prima",
@@ -27,8 +27,8 @@ const it: Dict = {
 
   homeHeadline: "Cosa ti preoccupa?",
   homeSub: "Scatta una foto o racconta a SympLens cosa succede.",
-  analyzeSymptom: "Analizza un sintomo",
-  describeSymptom: "Descrivi un sintomo",
+  analyzeSymptom: "Analizza una foto della pelle",
+  describeSymptom: "Descrivi un problema della pelle",
   analyzeReport: "Analizza un referto medico",
   recent: "Analisi recenti",
   noRecent: "Le tue analisi appariranno qui.",
@@ -64,7 +64,7 @@ const it: Dict = {
 
   describeTitle: "Cosa stai provando?",
   describeHint: "Bastano poche parole. Puoi anche usare la voce.",
-  describePlaceholder: "Ad esempio: tosse da 7 giorni, niente febbre…",
+  describePlaceholder: "Ad esempio: chiazza rossa che prude sul braccio da 7 giorni…",
   durationTitle: "Da quanto tempo succede?",
   dur_today: "Oggi", dur_few_days: "Da qualche giorno", dur_one_two_weeks: "1–2 settimane",
   dur_over_month: "Più di un mese", dur_unsure: "Non sono sicuro",
@@ -78,7 +78,7 @@ const it: Dict = {
   openDialer: "Apri il telefono",
   emergencyKeepGoing: "Puoi continuare, ma chiedi prima aiuto.",
 
-  processingTitle: "Analisi del tuo sintomo…",
+  processingTitle: "Analisi della tua foto della pelle…",
   step1: "Osservo le caratteristiche visibili",
   step2: "Esamino i tuoi sintomi",
   step3: "Cerco segnali di allarme",
@@ -203,8 +203,8 @@ const it: Dict = {
   theme_auto: "Automatico",
   themeDesc_auto: "Segue la modalità chiara o scura del telefono",
   paywallTitle: "Sblocca SympLens",
-  paywallSub: "Esplora liberamente. Serve un piano annuale per analizzare sintomi, foto e referti.",
-  paywallB1: "Analizza sintomi, foto e referti medici",
+  paywallSub: "Esplora liberamente. Serve un piano annuale per analizzare le foto della pelle.",
+  paywallB1: "Analizza foto e problemi della pelle",
   paywallB2: "Risultati in 14 lingue, con traduzione",
   paywallB3: "Segui i cambiamenti nel tempo e condividi un riepilogo con il medico",
   paywallB4: "La cronologia resta cifrata sul tuo dispositivo",
@@ -242,7 +242,7 @@ const it: Dict = {
   limitations: "Limiti dell'IA",
   disclaimer: "Avvertenza medica",
   aboutBody:
-    "SympLens è uno strumento di informazione sulla salute basato sull'IA. Ti aiuta a capire ciò che vedi e senti, spiega le possibili cause, evidenzia i segnali di allarme e suggerisce i passi successivi.",
+    "SympLens è uno strumento educativo di informazione sulla pelle con IA. Descrive ciò che è visibile, spiega condizioni che possono sembrare simili, evidenzia i segnali di allarme e suggerisce i passi successivi. Copre solo pelle, unghie, capelli e cuoio capelluto.",
   limitationsBody:
     "L'IA può sbagliare. Molte condizioni non si possono valutare da una foto, compresi i problemi interni e tutto ciò che richiede visita, esami di laboratorio o diagnostica per immagini. SympLens non mostra percentuali di accuratezza perché nessuna è stata convalidata.",
   disclaimerBody:

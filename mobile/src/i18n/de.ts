@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const de: Dict = {
   appName: "SympLens",
-  descriptor: "KI-Symptomanalyse",
+  descriptor: "KI-Hautinformation",
   tagline: "Sehen. Verstehen. Wissen, was als Nächstes zu tun ist.",
   continue: "Weiter", back: "Zurück", cancel: "Abbrechen", delete: "Löschen", done: "Fertig",
   tryAgain: "Erneut versuchen", skip: "Überspringen", share: "Teilen",
@@ -10,9 +10,9 @@ const de: Dict = {
   tabHome: "Start", tabAnalyze: "Analyse", tabHistory: "Verlauf", tabSettings: "Einstellungen", tabSafety: "Sicherheit",
 
   ob1t: "Lernen Sie SympLens kennen",
-  ob1b: "KI-gestützte Gesundheitsinformationen zu dem, was Sie sehen und spüren.",
+  ob1b: "KI-gestützte Hautinformationen zu dem, was Sie sehen.",
   ob2t: "Foto aufnehmen",
-  ob2b: "Zeigen Sie uns ein sichtbares Symptom, das Sie beunruhigt.",
+  ob2b: "Zeigen Sie uns ein Hautproblem, das Sie besser verstehen möchten.",
   ob3t: "Erzählen Sie uns, was los ist",
   ob3b: "Ein paar einfache Fragen helfen uns, Ihnen eine hilfreichere Erklärung zu geben.",
   ob4t: "Datenschutz an erster Stelle",
@@ -27,8 +27,8 @@ const de: Dict = {
 
   homeHeadline: "Was beunruhigt Sie?",
   homeSub: "Machen Sie ein Foto oder sagen Sie SympLens, was los ist.",
-  analyzeSymptom: "Symptom analysieren",
-  describeSymptom: "Symptom beschreiben",
+  analyzeSymptom: "Hautfoto analysieren",
+  describeSymptom: "Hautproblem beschreiben",
   analyzeReport: "Medizinischen Bericht analysieren",
   recent: "Letzte Analysen",
   noRecent: "Ihre Analysen erscheinen hier.",
@@ -64,7 +64,7 @@ const de: Dict = {
 
   describeTitle: "Was beschäftigt Sie gesundheitlich?",
   describeHint: "Ein paar Worte genügen. Sie können auch sprechen.",
-  describePlaceholder: "Zum Beispiel: Husten seit 7 Tagen, kein Fieber…",
+  describePlaceholder: "Zum Beispiel: juckender roter Fleck am Arm seit 7 Tagen…",
   durationTitle: "Seit wann besteht das?",
   dur_today: "Heute", dur_few_days: "Seit ein paar Tagen", dur_one_two_weeks: "1–2 Wochen",
   dur_over_month: "Länger als einen Monat", dur_unsure: "Nicht sicher",
@@ -78,7 +78,7 @@ const de: Dict = {
   openDialer: "Telefon-App öffnen",
   emergencyKeepGoing: "Sie können fortfahren, holen Sie aber zuerst Hilfe.",
 
-  processingTitle: "Ihr Symptom wird analysiert…",
+  processingTitle: "Ihr Hautfoto wird analysiert…",
   step1: "Sichtbare Merkmale ansehen",
   step2: "Ihre Symptome prüfen",
   step3: "Auf Warnzeichen prüfen",
@@ -203,8 +203,8 @@ const de: Dict = {
   theme_auto: "Automatisch",
   themeDesc_auto: "Folgt dem hellen oder dunklen Modus des Telefons",
   paywallTitle: "SympLens freischalten",
-  paywallSub: "Stöbere frei. Für die Analyse von Symptomen, Fotos und Berichten ist ein Jahresabo nötig.",
-  paywallB1: "Symptome, Fotos und medizinische Berichte analysieren",
+  paywallSub: "Stöbere frei. Für die Analyse von Hautfotos ist ein Jahresabo nötig.",
+  paywallB1: "Hautfotos und Hautprobleme analysieren",
   paywallB2: "Ergebnisse in 14 Sprachen, mit Übersetzung",
   paywallB3: "Veränderungen verfolgen und eine Zusammenfassung mit deinem Arzt teilen",
   paywallB4: "Dein Verlauf bleibt verschlüsselt auf deinem Gerät",
@@ -242,7 +242,7 @@ const de: Dict = {
   limitations: "Grenzen der KI",
   disclaimer: "Medizinischer Hinweis",
   aboutBody:
-    "SympLens ist ein KI-Werkzeug für Gesundheitsinformationen. Es hilft Ihnen zu verstehen, was Sie sehen und spüren, erklärt mögliche Ursachen, weist auf Warnzeichen hin und schlägt nächste Schritte vor.",
+    "SympLens ist ein KI-Werkzeug für Hautinformationen zu Bildungszwecken. Es beschreibt, was sichtbar ist, erklärt Erkrankungen, die ähnlich aussehen können, weist auf Warnzeichen hin und schlägt nächste Schritte vor. Es deckt nur Haut, Nägel, Haare und Kopfhaut ab.",
   limitationsBody:
     "KI kann Fehler machen. Viele Erkrankungen lassen sich nicht anhand eines Fotos beurteilen, darunter innere Probleme und alles, was eine körperliche Untersuchung, Labortests oder Bildgebung erfordert. SympLens zeigt keine Genauigkeitsprozente an, weil keine validiert wurden.",
   disclaimerBody:

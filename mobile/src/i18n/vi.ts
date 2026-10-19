@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const vi: Dict = {
   appName: "SympLens",
-  descriptor: "Trình phân tích triệu chứng AI",
+  descriptor: "Thông tin da liễu bằng AI",
   tagline: "Nhìn thấy. Hiểu rõ. Biết cần làm gì tiếp theo.",
   continue: "Tiếp tục", back: "Quay lại", cancel: "Hủy", delete: "Xóa", done: "Xong",
   tryAgain: "Thử lại", skip: "Bỏ qua", share: "Chia sẻ",
@@ -10,9 +10,9 @@ const vi: Dict = {
   tabHome: "Trang chủ", tabAnalyze: "Phân tích", tabHistory: "Lịch sử", tabSettings: "Cài đặt", tabSafety: "An toàn",
 
   ob1t: "Làm quen với SympLens",
-  ob1b: "Thông tin sức khỏe do AI cung cấp từ những gì bạn thấy và cảm nhận.",
+  ob1b: "Thông tin về da bằng AI từ những gì bạn nhìn thấy.",
   ob2t: "Chụp ảnh",
-  ob2b: "Hãy cho chúng tôi xem triệu chứng nhìn thấy được mà bạn lo lắng.",
+  ob2b: "Hãy cho chúng tôi xem vấn đề về da mà bạn muốn hiểu rõ hơn.",
   ob3t: "Cho chúng tôi biết chuyện gì đang xảy ra",
   ob3b: "Vài câu hỏi đơn giản giúp chúng tôi đưa ra lời giải thích hữu ích hơn.",
   ob4t: "Quyền riêng tư là trên hết",
@@ -27,8 +27,8 @@ const vi: Dict = {
 
   homeHeadline: "Bạn đang lo lắng về điều gì?",
   homeSub: "Hãy chụp ảnh hoặc cho SympLens biết chuyện gì đang xảy ra.",
-  analyzeSymptom: "Phân tích triệu chứng",
-  describeSymptom: "Mô tả triệu chứng",
+  analyzeSymptom: "Phân tích ảnh da",
+  describeSymptom: "Mô tả vấn đề về da",
   analyzeReport: "Phân tích báo cáo y tế",
   recent: "Phân tích gần đây",
   noRecent: "Các phân tích của bạn sẽ hiển thị ở đây.",
@@ -64,7 +64,7 @@ const vi: Dict = {
 
   describeTitle: "Bạn đang gặp vấn đề gì?",
   describeHint: "Vài từ là đủ. Bạn cũng có thể dùng giọng nói.",
-  describePlaceholder: "Ví dụ: ho 7 ngày, không sốt…",
+  describePlaceholder: "Ví dụ: vết đỏ ngứa trên cánh tay đã 7 ngày…",
   durationTitle: "Tình trạng này kéo dài bao lâu rồi?",
   dur_today: "Hôm nay", dur_few_days: "Vài ngày", dur_one_two_weeks: "1–2 tuần",
   dur_over_month: "Hơn một tháng", dur_unsure: "Không chắc",
@@ -78,7 +78,7 @@ const vi: Dict = {
   openDialer: "Mở ứng dụng gọi điện",
   emergencyKeepGoing: "Bạn vẫn có thể tiếp tục, nhưng hãy tìm sự giúp đỡ trước.",
 
-  processingTitle: "Đang phân tích triệu chứng của bạn…",
+  processingTitle: "Đang phân tích ảnh da của bạn…",
   step1: "Xem các đặc điểm có thể nhìn thấy",
   step2: "Xem xét các triệu chứng của bạn",
   step3: "Kiểm tra các dấu hiệu cảnh báo",
@@ -203,8 +203,8 @@ const vi: Dict = {
   theme_auto: "Tự động",
   themeDesc_auto: "Theo chế độ sáng hoặc tối của điện thoại",
   paywallTitle: "Mở khóa SympLens",
-  paywallSub: "Cứ thoải mái xem qua. Cần gói năm để phân tích triệu chứng, ảnh và báo cáo.",
-  paywallB1: "Phân tích triệu chứng, ảnh và báo cáo y tế",
+  paywallSub: "Cứ thoải mái xem qua. Cần gói năm để phân tích ảnh da.",
+  paywallB1: "Phân tích ảnh và vấn đề về da",
   paywallB2: "Kết quả bằng 14 ngôn ngữ, có bản dịch",
   paywallB3: "Theo dõi thay đổi và chia sẻ bản tóm tắt với bác sĩ",
   paywallB4: "Lịch sử của bạn được mã hóa trên thiết bị",
@@ -242,7 +242,7 @@ const vi: Dict = {
   limitations: "Hạn chế của AI",
   disclaimer: "Tuyên bố miễn trừ y tế",
   aboutBody:
-    "SympLens là công cụ thông tin sức khỏe dùng AI. Nó giúp bạn hiểu những gì bạn thấy và cảm nhận, giải thích các nguyên nhân có thể có, làm nổi bật dấu hiệu cảnh báo và gợi ý các bước tiếp theo.",
+    "SympLens là công cụ thông tin về da bằng AI nhằm mục đích giáo dục. Công cụ mô tả những gì nhìn thấy, giải thích các tình trạng có thể trông giống nhau, nêu dấu hiệu cảnh báo và gợi ý các bước tiếp theo. Chỉ áp dụng cho da, móng, tóc và da đầu.",
   limitationsBody:
     "AI có thể mắc sai sót. Nhiều tình trạng không thể đánh giá chỉ qua ảnh, gồm các vấn đề bên trong và mọi thứ cần khám lâm sàng, xét nghiệm hoặc chẩn đoán hình ảnh. SympLens không hiển thị tỷ lệ chính xác vì chưa có con số nào được kiểm chứng.",
   disclaimerBody:

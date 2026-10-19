@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const ja: Dict = {
   appName: "SympLens",
-  descriptor: "AI症状アナライザー",
+  descriptor: "AI 肌情報",
   tagline: "見て、理解して、次にすることがわかる。",
   continue: "続ける", back: "戻る", cancel: "キャンセル", delete: "削除", done: "完了",
   tryAgain: "もう一度試す", skip: "スキップ", share: "共有",
@@ -10,9 +10,9 @@ const ja: Dict = {
   tabHome: "ホーム", tabAnalyze: "分析", tabHistory: "履歴", tabSettings: "設定", tabSafety: "安全",
 
   ob1t: "SympLensへようこそ",
-  ob1b: "見たこと・感じたことから、AIが健康に関する情報を提供します。",
+  ob1b: "見たままの状態から、AI が肌の情報をお届けします。",
   ob2t: "写真を撮る",
-  ob2b: "気になる目に見える症状を見せてください。",
+  ob2b: "理解したい肌の悩みを見せてください。",
   ob3t: "状況を教えてください",
   ob3b: "いくつかの簡単な質問で、より役立つ説明ができます。",
   ob4t: "プライバシーを最優先",
@@ -27,8 +27,8 @@ const ja: Dict = {
 
   homeHeadline: "どんなことが気になりますか？",
   homeSub: "写真を撮るか、状況をSympLensに伝えてください。",
-  analyzeSymptom: "症状を分析",
-  describeSymptom: "症状を入力",
+  analyzeSymptom: "肌の写真を分析",
+  describeSymptom: "肌の悩みを説明",
   analyzeReport: "検査結果を分析",
   recent: "最近の分析",
   noRecent: "分析結果はここに表示されます。",
@@ -64,7 +64,7 @@ const ja: Dict = {
 
   describeTitle: "どのような症状がありますか？",
   describeHint: "数語で十分です。音声入力も使えます。",
-  describePlaceholder: "例：咳が7日間続いている、熱はない…",
+  describePlaceholder: "例：腕のかゆい赤い斑点が7日間続いている…",
   durationTitle: "いつからですか？",
   dur_today: "今日", dur_few_days: "数日前から", dur_one_two_weeks: "1〜2週間",
   dur_over_month: "1か月以上", dur_unsure: "わからない",
@@ -78,7 +78,7 @@ const ja: Dict = {
   openDialer: "電話アプリを開く",
   emergencyKeepGoing: "続けることもできますが、まず助けを求めてください。",
 
-  processingTitle: "症状を分析中…",
+  processingTitle: "肌の写真を分析しています…",
   step1: "目に見える特徴を確認中",
   step2: "症状を確認中",
   step3: "警告サインを確認中",
@@ -202,8 +202,8 @@ const ja: Dict = {
   theme_auto: "自動",
   themeDesc_auto: "端末のライト/ダーク設定に合わせます",
   paywallTitle: "SympLens をアンロック",
-  paywallSub: "自由にご覧いただけます。症状・写真・レポートの分析には年間プランが必要です。",
-  paywallB1: "症状、写真、医療レポートを分析",
+  paywallSub: "自由にご覧いただけます。肌の写真の分析には年間プランが必要です。",
+  paywallB1: "肌の写真や悩みを分析",
   paywallB2: "14言語での結果と翻訳",
   paywallB3: "経過を記録し、医師に要約を共有",
   paywallB4: "履歴は端末内で暗号化されます",
@@ -241,7 +241,7 @@ const ja: Dict = {
   limitations: "AIの限界",
   disclaimer: "医療に関する免責事項",
   aboutBody:
-    "SympLensはAIによる健康情報ツールです。見たことや感じたことを理解し、考えられる原因を説明し、注意すべきサインを示し、次のステップを提案します。",
+    "SympLens は教育目的の AI 肌情報ツールです。見える状態を説明し、似て見える可能性のある状態を解説し、注意すべきサインを示し、次の行動を提案します。対象は肌、爪、髪、頭皮のみです。",
   limitationsBody:
     "AIは間違えることがあります。体の内部の問題や、身体診察・検査・画像診断が必要なものなど、写真だけでは判断できない状態が多くあります。精度の検証が行われていないため、SympLensは精度の割合を表示しません。",
   disclaimerBody:

@@ -14,7 +14,6 @@ export default function AnalyzeTab() {
       <View style={{ gap: space.md }}>
         <Button icon="camera-outline" label={t("analyzeSymptom")} onPress={() => startFlow("symptom")} />
         <Button kind="secondary" icon="chatbubble-ellipses-outline" label={t("describeSymptom")} onPress={() => startFlow("symptom", true)} />
-        <Button kind="secondary" icon="document-text-outline" label={t("analyzeReport")} onPress={() => startFlow("report")} />
       </View>
     </Screen>
   );

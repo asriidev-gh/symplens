@@ -2,7 +2,7 @@ import type { Dict } from "./en";
 
 const id: Dict = {
   appName: "SympLens",
-  descriptor: "Penganalisis Gejala AI",
+  descriptor: "Informasi Kulit dengan AI",
   tagline: "Lihat. Pahami. Tahu apa yang harus dilakukan selanjutnya.",
   continue: "Lanjutkan", back: "Kembali", cancel: "Batal", delete: "Hapus", done: "Selesai",
   tryAgain: "Coba lagi", skip: "Lewati", share: "Bagikan",
@@ -10,9 +10,9 @@ const id: Dict = {
   tabHome: "Beranda", tabAnalyze: "Analisis", tabHistory: "Riwayat", tabSettings: "Pengaturan", tabSafety: "Keamanan",
 
   ob1t: "Kenali SympLens",
-  ob1b: "Informasi kesehatan berbasis AI dari apa yang Anda lihat dan rasakan.",
+  ob1b: "Informasi kulit berbasis AI dari apa yang Anda lihat.",
   ob2t: "Ambil foto",
-  ob2b: "Tunjukkan gejala yang terlihat dan membuat Anda khawatir.",
+  ob2b: "Tunjukkan masalah kulit yang ingin Anda pahami.",
   ob3t: "Ceritakan apa yang terjadi",
   ob3b: "Beberapa pertanyaan sederhana membantu kami memberi penjelasan yang lebih berguna.",
   ob4t: "Privasi diutamakan",
@@ -27,8 +27,8 @@ const id: Dict = {
 
   homeHeadline: "Apa yang Anda khawatirkan?",
   homeSub: "Ambil foto atau ceritakan kepada SympLens apa yang terjadi.",
-  analyzeSymptom: "Analisis gejala",
-  describeSymptom: "Jelaskan gejala",
+  analyzeSymptom: "Analisis Foto Kulit",
+  describeSymptom: "Jelaskan Masalah Kulit",
   analyzeReport: "Analisis laporan medis",
   recent: "Analisis terbaru",
   noRecent: "Analisis Anda akan muncul di sini.",
@@ -64,7 +64,7 @@ const id: Dict = {
 
   describeTitle: "Apa yang Anda alami?",
   describeHint: "Beberapa kata sudah cukup. Anda juga bisa menggunakan suara.",
-  describePlaceholder: "Contoh: batuk 7 hari, tidak demam…",
+  describePlaceholder: "Contoh: bercak merah gatal di lengan selama 7 hari…",
   durationTitle: "Sudah berapa lama ini terjadi?",
   dur_today: "Hari ini", dur_few_days: "Beberapa hari", dur_one_two_weeks: "1–2 minggu",
   dur_over_month: "Lebih dari sebulan", dur_unsure: "Tidak yakin",
@@ -78,7 +78,7 @@ const id: Dict = {
   openDialer: "Buka aplikasi telepon",
   emergencyKeepGoing: "Anda tetap bisa melanjutkan, tetapi cari bantuan terlebih dahulu.",
 
-  processingTitle: "Menganalisis gejala Anda…",
+  processingTitle: "Menganalisis foto kulit Anda…",
   step1: "Melihat ciri yang tampak",
   step2: "Meninjau gejala Anda",
   step3: "Memeriksa tanda bahaya",
@@ -203,8 +203,8 @@ const id: Dict = {
   theme_auto: "Otomatis",
   themeDesc_auto: "Mengikuti mode terang atau gelap ponsel",
   paywallTitle: "Buka SympLens",
-  paywallSub: "Jelajahi dengan bebas. Paket tahunan diperlukan untuk menganalisis gejala, foto, dan laporan.",
-  paywallB1: "Analisis gejala, foto, dan laporan medis",
+  paywallSub: "Jelajahi dengan bebas. Paket tahunan diperlukan untuk menganalisis foto kulit.",
+  paywallB1: "Analisis foto dan masalah kulit",
   paywallB2: "Hasil dalam 14 bahasa, dengan terjemahan",
   paywallB3: "Pantau perubahan dan bagikan ringkasan ke dokter Anda",
   paywallB4: "Riwayat Anda tetap terenkripsi di perangkat",
@@ -242,7 +242,7 @@ const id: Dict = {
   limitations: "Keterbatasan AI",
   disclaimer: "Penafian medis",
   aboutBody:
-    "SympLens adalah alat informasi kesehatan berbasis AI. Alat ini membantu Anda memahami apa yang Anda lihat dan rasakan, menjelaskan kemungkinan penyebab, menyoroti tanda bahaya, dan menyarankan langkah selanjutnya.",
+    "SympLens adalah alat informasi kulit berbasis AI untuk tujuan edukasi. Alat ini menjelaskan apa yang terlihat, menerangkan kondisi yang bisa tampak mirip, menyoroti tanda bahaya, dan menyarankan langkah berikutnya. Hanya mencakup kulit, kuku, rambut, dan kulit kepala.",
   limitationsBody:
     "AI bisa salah. Banyak kondisi tidak dapat dinilai dari foto, termasuk masalah internal dan apa pun yang memerlukan pemeriksaan fisik, tes laboratorium, atau pencitraan. SympLens tidak menampilkan persentase akurasi karena belum ada yang divalidasi.",
   disclaimerBody:
