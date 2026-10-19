@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { AccessibilityInfo, Animated, Easing, Image, StyleSheet, Text, View } from "react-native";
+import { AccessibilityInfo, Animated, Easing, Image, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import Svg, { Circle, G, Line, Path, Rect } from "react-native-svg";
 import { useStore } from "@/lib/store";
-import { colors, fonts, radius, softShadow } from "@/theme";
+import { colors, fonts, radius, softShadow, space } from "@/theme";
 import { Icon } from "./Icon";
 import { LOGOS } from "./ThemeLogo";
 import { T } from "./ui";
@@ -385,7 +385,6 @@ function BrandBackdrop() {
       ) : (
         <G>
           {lines}
-          <Circle cx={W / 2} cy={250} r={170} fill={colors.brand} opacity={theme === "dark" ? 0.14 : 0.1} />
         </G>
       )}
       {theme === "dark" ? (
@@ -444,17 +443,23 @@ export function BrandSplash({ active }: { active: boolean }) {
       Animated.timing(x, { toValue: 0, duration: 1800, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
     ]),
   );
-  const haloScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.92, 1.12] });
-  const haloOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: [theme === "dark" ? 0.35 : 0.18, theme === "dark" ? 0.6 : 0.3] });
+  const haloScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.94, 1.06] });
+  const haloOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: [theme === "dark" ? 0.3 : 0.16, theme === "dark" ? 0.5 : 0.26] });
+  // One stage size drives the rings and logo so they stay concentric on any phone width.
+  const { width } = useWindowDimensions();
+  const stage = Math.round(Math.min(width - 2 * space.xl, 300));
+  const halo = Math.round(stage * 0.72);
+  const logo = Math.round(stage * 0.5);
   return (
-    <View style={{ flex: 1, alignSelf: "stretch", alignItems: "center", justifyContent: "center", gap: 18 }}>
+    <View style={{ flex: 1, alignSelf: "stretch", alignItems: "center", justifyContent: "center", gap: space.lg }}>
       <BrandBackdrop />
-      <View style={{ width: 230, height: 230 }}>
+      <View style={{ width: stage, height: stage, alignItems: "center", justifyContent: "center" }}>
+        <View style={{ position: "absolute", width: stage, height: stage, borderRadius: stage / 2, backgroundColor: colors.brand, opacity: theme === "dark" ? 0.12 : 0.08 }} />
         <Layer style={{ transform: [{ scale: haloScale }], opacity: haloOpacity }}>
-          <View style={{ width: 210, height: 210, borderRadius: 105, backgroundColor: colors.brand }} />
+          <View style={{ width: halo, height: halo, borderRadius: halo / 2, backgroundColor: colors.brand }} />
         </Layer>
-        <Float run={run} dist={7} ms={2000}>
-          <Image source={LOGOS[theme]} style={[{ width: 188, height: 188 }, softShadow]} resizeMode="contain" accessibilityLabel={t("appName")} />
+        <Float run={run} dist={6} ms={2000}>
+          <Image source={LOGOS[theme]} style={[{ width: logo, height: logo }, softShadow]} resizeMode="contain" accessibilityLabel={t("appName")} />
         </Float>
       </View>
       <Wordmark />

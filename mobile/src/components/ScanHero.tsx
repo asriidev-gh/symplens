@@ -45,8 +45,8 @@ const AREAS: { id: AreaId; icon: Glyph; label: TKey; photo: ImageSourcePropType;
 /** Each sample line is tagged with the same icons the real result screen uses: see / mean / do. */
 const LINES: IconName[] = ["eye-outline", "bulb-outline", "checkmark-circle-outline"];
 
-const FRAME = 148;
-const DISC = 118;
+const FRAME = 128;
+const DISC = 102;
 /** How long each sample stays up before the next one: long enough to read three short lines. */
 const DWELL_MS = 4500;
 
@@ -128,8 +128,13 @@ export function ScanHero() {
         {/* right: sample analysis for the same area */}
         <View style={styles.card}>
           <Animated.View style={{ opacity: fade, gap: space.sm }}>
+            <T v="small" color={colors.brandText} style={styles.kicker} numberOfLines={1}>{t("sampleTitle").toUpperCase()}</T>
             <View style={styles.cardHead}>
-              <T v="small" color={colors.brandText} style={styles.kicker}>{t("sampleTitle").toUpperCase()}</T>
+              <View style={[styles.pill, { backgroundColor: u.bg, borderColor: u.border }]}>
+                <T v="small" color={u.fg} numberOfLines={1} style={{ fontFamily: "DMSans_700Bold", fontSize: 11, lineHeight: 14 }}>
+                  {t(`urg_${active.urgency}` as TKey)}
+                </T>
+              </View>
               <View style={styles.headRight}>
                 {!reduce && (
                   <Pressable
@@ -142,11 +147,6 @@ export function ScanHero() {
                     <Icon name={manual ? "play-circle-outline" : "pause-circle-outline"} size={22} color={colors.brandText} />
                   </Pressable>
                 )}
-              <View style={[styles.pill, { backgroundColor: u.bg, borderColor: u.border }]}>
-                <T v="small" color={u.fg} style={{ fontFamily: "DMSans_700Bold", fontSize: 11, lineHeight: 14 }}>
-                  {t(`urg_${active.urgency}` as TKey)}
-                </T>
-              </View>
               </View>
             </View>
             <View style={styles.titleRow}>
@@ -158,7 +158,7 @@ export function ScanHero() {
                 <View style={{ paddingTop: 2 }}>
                   <Icon name={icon} size={15} color={colors.brandText} />
                 </View>
-                <T v="small" style={styles.lineText}>{t(`sample_${active.id}_${n + 1}` as TKey)}</T>
+                <T v="small" numberOfLines={3} style={styles.lineText}>{t(`sample_${active.id}_${n + 1}` as TKey)}</T>
               </View>
             ))}
           </Animated.View>
@@ -247,7 +247,7 @@ const makeStyles = () =>
     card: {
       flex: 1,
       alignSelf: "stretch",
-      minHeight: FRAME,
+      minHeight: 196,
       backgroundColor: colors.surface,
       borderRadius: radius.md,
       borderWidth: 1,
@@ -258,10 +258,10 @@ const makeStyles = () =>
       overflow: "hidden",
     },
     cardHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: space.sm },
-    kicker: { fontFamily: "DMSans_700Bold", fontSize: 10, lineHeight: 14, letterSpacing: 0.8, flexShrink: 1 },
+    kicker: { fontFamily: "DMSans_700Bold", fontSize: 10, lineHeight: 14, letterSpacing: 0.8 },
     headRight: { flexDirection: "row", alignItems: "center", gap: 6 },
     pauseBtn: { width: 28, height: 28, alignItems: "center", justifyContent: "center" },
-    pill: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 2 },
+    pill: { borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 2, flexShrink: 1 },
     titleRow: { flexDirection: "row", alignItems: "center", gap: space.sm },
     line: { flexDirection: "row", alignItems: "flex-start", gap: space.sm },
     lineText: { flex: 1, fontSize: 13, lineHeight: 18 },

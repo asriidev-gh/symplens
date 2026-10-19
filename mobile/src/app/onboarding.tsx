@@ -34,7 +34,7 @@ function PageText({ title, body, active, reduce }: { title: string; body: string
   }, [active, reduce, v]);
   const translateY = v.interpolate({ inputRange: [0, 1], outputRange: [14, 0] });
   return (
-    <Animated.View style={{ opacity: v, transform: [{ translateY }], alignItems: "center", gap: space.md }}>
+    <Animated.View style={{ opacity: v, transform: [{ translateY }], alignItems: "center", justifyContent: "flex-start", minHeight: 176, gap: space.md }}>
       <T v="display" style={{ textAlign: "center" }} accessibilityRole="header">{title}</T>
       <T color={colors.inkSoft} style={{ textAlign: "center", maxWidth: 320 }}>{body}</T>
     </Animated.View>
@@ -104,7 +104,12 @@ export default function Onboarding() {
       />
 
       <View style={{ padding: space.xl, gap: space.lg }}>
-        <View style={{ flexDirection: "row", justifyContent: "center", gap: space.sm }} accessibilityElementsHidden>
+        <View
+          style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: space.sm, minHeight: 24 }}
+          accessible
+          accessibilityRole="progressbar"
+          accessibilityLabel={`${index + 1} / ${PAGES.length}`}
+        >
           {PAGES.map((p, i) => (
             <View
               key={p.t}
