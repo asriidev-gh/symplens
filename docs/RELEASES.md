@@ -7,6 +7,7 @@
 Newest first. All entries so far are from the initial build-out (2026-10-14).
 
 ### Unreleased
+- **Scope narrowed to educational skin information** (Medgic-style, not a regulated medical device): skin-only prompt rule with look-alike naming, medical-report entry points removed, skin-focused text in all 14 languages, draft in-app Terms and Privacy (`mobile/src/lib/legal.ts`), updated evals. Live evals not yet rerun after this change
 - **Monthly fair-use cap** per subscriber (60 analyses, 300 chat/translate calls, env-tunable) with a translated explanation in the app (`a4759ca`)
 - **Yearly subscription paywall** via RevenueCat, no free trial, shown when tapping Analyze; server-side entitlement check returning 402; emergency guidance never gated (`df5ae5a`)
 - **CI and EAS build profiles** (`58125f5`)
@@ -31,9 +32,9 @@ Camera and photo picker · PDF picker · text-to-speech · dictation · doctor P
 | Area | Item |
 |---|---|
 | Hosting | Deploy the server; Upstash Redis; spend limit on the Anthropic workspace; alerts on `budget_80_percent` / `budget_exhausted` |
-| Store | Real app icon and splash (current logos are about 264 px); store listings and privacy labels; working Terms and Privacy links (the Terms screen is a placeholder) |
+| Store | Real app icon and splash (current logos are about 264 px); store listings and privacy labels; a public privacy-policy URL and a privacy contact (the in-app Terms and Privacy text is an unreviewed draft) |
 | Safety | Clinician review of emergency phrases and prompts; clinician-labeled real-photo evaluation across skin tones, ages and body areas |
-| Language | Native-speaker review of all 14 translations, especially emergency, disclaimer and paywall text; negation handling for Japanese, Korean and Hindi |
+| Language | Native-speaker review of all 14 translations (the skin-only wording was machine-translated), especially emergency, disclaimer and paywall text; negation handling for Japanese, Korean and Hindi |
 | Legal | Regulatory review (medical-device software rules); data-processing terms with the AI provider; Anthropic data-retention terms |
 | Security | App attestation (App Attest / Play Integrity) so only the genuine app can call the API |
 | Engineering | Streaming results, searchable/virtualized history, mobile unit and end-to-end tests, right-to-left languages |

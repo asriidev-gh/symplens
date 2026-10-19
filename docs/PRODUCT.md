@@ -5,7 +5,7 @@
 SympLens is a **health-information** app, not a diagnosis tool. A person describes a symptom (and optionally adds a photo, or a medical report/lab PDF) and gets a plain-language explanation, a four-level urgency rating and clear next steps. It is built for all ages, in 14 languages, with privacy and safety as the top priorities.
 
 ## Who it is for
-Anyone who wants to understand a symptom, a skin/eye/hair/foot/mouth concern, or a lab report before deciding whether to see a doctor: adults, parents checking a child, and carers checking an older relative (the "who is this for" step adapts the safety rules by age group).
+Anyone who wants to understand a skin, nail, hair or scalp concern before deciding whether to see a doctor (educational information only, skin-only scope): adults, parents checking a child, and carers checking an older relative (the "who is this for" step adapts the safety rules by age group).
 
 ## The main journey
 1. **First launch:** animated onboarding (brand splash, then 4 steps), pick language and theme.
