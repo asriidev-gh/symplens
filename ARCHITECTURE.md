@@ -2,6 +2,8 @@
 
 > See it. Understand it. Know what to do next.
 
+Companion docs: [README](README.md) (start here) · [docs/PRODUCT.md](docs/PRODUCT.md) · [docs/TECH_STACK.md](docs/TECH_STACK.md) · [docs/CONFIGURATION.md](docs/CONFIGURATION.md) · [docs/RELEASES.md](docs/RELEASES.md).
+
 Two deployables: **`mobile/`** (Expo SDK 57, React Native, Expo Router, TypeScript) and **`server/`** (Next.js route handlers, TypeScript, stateless). Claude (vision + tools) is the analysis engine, called only from the server.
 
 ## 1. How a request flows
@@ -87,5 +89,5 @@ The server must run behind a proxy that sets `X-Forwarded-For` (Vercel, Fly, ngi
 ## 9. Paywall
 One plan: **yearly auto-renewing subscription, no free trial**, price set in App Store Connect / Play Console (the app shows the store price; $29.99 is the fallback text). People can browse everything; tapping **Analyze** without a plan opens the paywall. RevenueCat (`react-native-purchases`) handles purchase and restore; the **install id is the RevenueCat app-user id**, so the server can verify it. Enforcement is server-side (`lib/entitlement.ts`, on when `REQUIRE_SUBSCRIPTION=true`): `/api/analyze`, `/followup` and `/translate` return 402 without an active `pro` entitlement, and the app then shows the paywall. **Emergency guidance is never gated**: the on-device check works without a plan, and the server answers an emergency from an unsubscribed caller with the built-in emergency fallback (no model call). **Fair-use cap:** each subscriber gets `MONTHLY_ANALYSIS_LIMIT` analyses (default 60) and `MONTHLY_AUX_LIMIT` chat/translation calls (default 300) per UTC month, counted in Redis per install id; beyond that the API answers 429 `monthly_limit` and the app explains it resets next month (emergency guidance still shows). Debug builds without RevenueCat keys treat everyone as subscribed. Neither store lets an app remove a user's ability to cancel; cancelling only stops renewal.
 
-## 10. Known gaps (see README for the release checklist)
-Clinician review of emergency phrases/prompts and native-speaker review of translations · privacy policy & terms (placeholder) · Anthropic data-retention terms · RTL languages (Arabic/Hebrew) · accounts, subscriptions, family profiles · embeddings + similar-case lookup (schema and opt-in endpoint exist) · real-device testing of camera, picker, PDF, TTS, dictation and the PDF share sheet.
+## 10. Known gaps (see docs/RELEASES.md for the release checklist)
+Clinician review of emergency phrases/prompts and native-speaker review of translations · privacy policy & terms (placeholder) · Anthropic data-retention terms · RTL languages (Arabic/Hebrew) · accounts and cross-device sync, family profiles · embeddings + similar-case lookup (schema and opt-in endpoint exist) · real-device testing of camera, picker, PDF, TTS, dictation and the PDF share sheet.
