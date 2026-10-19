@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ActivityIndicator, AccessibilityInfo, View } from "react-native";
+import { AccessibilityInfo, Animated, Easing, View } from "react-native";
 import { Button, Screen, T } from "@/components/ui";
 import { Icon } from "@/components/Icon";
+import { LogoArt } from "@/components/ThemeLogo";
 import { ApiError, analyze, type ApiErrorKind, type PreviousPayload } from "@/lib/api";
 import { readPhotoBase64 } from "@/lib/photos";
 import { newId } from "@/lib/format";
@@ -13,6 +14,63 @@ import type { AnalysisResponse } from "@/lib/types";
 import { colors, space } from "@/theme";
 
 const STEP_MS = 1400;
+const STAGE = 232;
+const CORE = 112;
+
+/** One expanding, fading ring. Three of them, staggered, read as a calm pulse radiating from the logo. */
+function Ring({ delay }: { delay: number }) {
+  const [v] = useState(() => new Animated.Value(0));
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(delay),
+        Animated.timing(v, { toValue: 1, duration: 2700, easing: Easing.out(Easing.quad), useNativeDriver: true }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [delay, v]);
+  const scale = v.interpolate({ inputRange: [0, 1], outputRange: [0.55, 1] });
+  const opacity = v.interpolate({ inputRange: [0, 0.15, 1], outputRange: [0, 0.38, 0] });
+  return (
+    <Animated.View
+      style={{ position: "absolute", width: STAGE, height: STAGE, borderRadius: STAGE / 2, backgroundColor: colors.brand, opacity, transform: [{ scale }] }}
+    />
+  );
+}
+
+/** Pulsing ovals fading out behind a gently breathing logo. Static (single soft halo) under reduce-motion. */
+function PulseLogo({ reduce }: { reduce: boolean }) {
+  const [b] = useState(() => new Animated.Value(0));
+  useEffect(() => {
+    if (reduce) return;
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(b, { toValue: 1, duration: 1350, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.timing(b, { toValue: 0, duration: 1350, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [reduce, b]);
+  const breathe = b.interpolate({ inputRange: [0, 1], outputRange: [1, 1.06] });
+  return (
+    <View style={{ width: STAGE, height: STAGE, alignItems: "center", justifyContent: "center", alignSelf: "center" }} aria-hidden>
+      {reduce ? (
+        <View style={{ position: "absolute", width: STAGE * 0.78, height: STAGE * 0.78, borderRadius: STAGE, backgroundColor: colors.brand, opacity: 0.14 }} />
+      ) : (
+        <>
+          <Ring delay={0} />
+          <Ring delay={900} />
+          <Ring delay={1800} />
+        </>
+      )}
+      <Animated.View style={{ width: CORE, height: CORE, borderRadius: CORE * 0.28, overflow: "hidden", transform: [{ scale: reduce ? 1 : breathe }] }}>
+        <LogoArt size={CORE} />
+      </Animated.View>
+    </View>
+  );
+}
 
 export default function Processing() {
   const { t, settings, savesHistory, addHistory, history, updateHistory } = useStore();
@@ -162,7 +220,7 @@ export default function Processing() {
   return (
     <Screen scroll={false}>
       <View style={{ flex: 1, justifyContent: "center", gap: space.xl }} accessibilityLiveRegion="polite">
-        {reduce ? null : <ActivityIndicator size="large" color={colors.brand} />}
+        <PulseLogo reduce={reduce} />
         <T v="title" style={{ textAlign: "center" }} accessibilityRole="header">
           {isReport ? t("processingReport") : t("processingTitle")}
         </T>

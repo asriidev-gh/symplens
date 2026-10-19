@@ -36,6 +36,7 @@ async function post<T>(path: string, body: unknown, installId: string, timeoutMs
       throw new ApiError(code === "monthly_limit" ? "monthly_limit" : "rate_limited");
     }
     if (res.status === 402) throw new ApiError("subscription");
+    if (__DEV__ && !res.ok) console.log(`[api] ${path} -> HTTP ${res.status}`);
     if (!res.ok) {
       const code = (await res.json().catch(() => ({})))?.error;
       throw new ApiError(code === "unsafe_output" ? "unsafe" : "failed");
@@ -43,6 +44,7 @@ async function post<T>(path: string, body: unknown, installId: string, timeoutMs
     return (await res.json()) as T;
   } catch (e) {
     if (e instanceof ApiError) throw e;
+    if (__DEV__) console.log(`[api] ${BASE}${path} failed:`, e);
     throw new ApiError((await isOnline()) ? "failed" : "offline");
   } finally {
     clearTimeout(timer);

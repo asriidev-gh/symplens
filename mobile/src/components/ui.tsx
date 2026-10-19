@@ -13,7 +13,7 @@ import {
   type TextStyle,
   type ViewStyle,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStore } from "@/lib/store";
 import { Icon, type IconName } from "./Icon";
 import type { Urgency } from "@/lib/types";
@@ -76,6 +76,8 @@ export function Screen({
 }) {
   const { t } = useStore();
   const styles = makeStyles();
+  // Android is edge-to-edge: keep the last content and the footer button clear of the system nav bar.
+  const bottom = useSafeAreaInsets().bottom;
   const body = (
     <>
       {(back || title) && (
@@ -103,7 +105,7 @@ export function Screen({
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       {scroll ? (
         <ScrollView
-          contentContainerStyle={[styles.content, tabs && { paddingBottom: TAB_BAR_SPACE }]}
+          contentContainerStyle={[styles.content, tabs ? { paddingBottom: TAB_BAR_SPACE } : { paddingBottom: space.xxl + bottom }]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -112,7 +114,7 @@ export function Screen({
       ) : (
         <View style={styles.content}>{body}</View>
       )}
-      {footer ? <View style={styles.footer}>{footer}</View> : null}
+      {footer ? <View style={[styles.footer, { paddingBottom: space.xl + bottom }]}>{footer}</View> : null}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
