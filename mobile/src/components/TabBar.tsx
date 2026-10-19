@@ -51,7 +51,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               </View>
             )}
             {!center && (
-              <Text style={{ fontFamily: fonts.medium, fontSize: Math.max(12, fs(12)), color: focused ? colors.tabActiveLabel : colors.tabInactive }}>{label}</Text>
+              <Text style={{ fontFamily: focused ? fonts.bold : fonts.medium, fontSize: Math.max(12, fs(12)), color: focused ? colors.tabActiveLabel : colors.tabInactive }}>{label}</Text>
             )}
           </Pressable>
         );
@@ -79,7 +79,8 @@ const makeStyles = () =>
     paddingHorizontal: 6,
   },
   item: { flex: 1, alignItems: "center", gap: 2, minHeight: 56, justifyContent: "center" },
-  pill: { width: 44, height: 34, borderRadius: 17, alignItems: "center", justifyContent: "center" },
+  // Same shape for every tab (transparent when idle) so the active state only changes colour, never size or shape.
+  pill: { width: 56, height: 32, borderRadius: 16, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   // Seated inside the bar: equal space above and below, no overlap with the top edge.
   center: {
     width: 56,

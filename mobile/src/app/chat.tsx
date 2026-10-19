@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useRef, useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, TextInput, View } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, Pressable, ScrollView, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EmergencyBanner } from "@/components/EmergencyBanner";
 import { Button, T } from "@/components/ui";
@@ -75,7 +75,7 @@ export default function Chat() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <View style={{ padding: space.xl, paddingBottom: space.sm, gap: space.sm }}>
           <Pressable
             accessibilityRole="button"
@@ -108,7 +108,7 @@ export default function Chat() {
               <T color={m.role === "user" ? colors.onPrimary : colors.ink}>{m.text}</T>
             </View>
           ))}
-          {busy && <T color={colors.inkSoft}>…</T>}
+          {busy && <ActivityIndicator color={colors.brandText} style={{ alignSelf: "flex-start", margin: space.sm }} accessibilityLabel={t("send")} />}
           {error && <T color={colors.danger} accessibilityRole="alert">{error}</T>}
           <T v="small" color={colors.inkSoft}>{t("notDiagnosis")}</T>
         </ScrollView>

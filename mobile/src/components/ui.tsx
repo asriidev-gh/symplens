@@ -2,6 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React from "react";
 import {
+  KeyboardAvoidingView,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -98,6 +99,8 @@ export function Screen({
   );
   return (
     <SafeAreaView style={styles.screen} edges={edges ?? ["top"]}>
+      {/* Android is edge-to-edge (the system no longer resizes the window), so both platforms pad for the keyboard. */}
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       {scroll ? (
         <ScrollView
           contentContainerStyle={[styles.content, tabs && { paddingBottom: TAB_BAR_SPACE }]}
@@ -110,6 +113,7 @@ export function Screen({
         <View style={styles.content}>{body}</View>
       )}
       {footer ? <View style={styles.footer}>{footer}</View> : null}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -197,8 +201,12 @@ export function Chip({
       onPress={onPress}
       style={[styles.chip, selected && { backgroundColor: colors.brandSoft, borderColor: colors.brand }]}
     >
-      <T v="label" color={colors.ink}>{label}</T>
-      {sub ? <T v="small" color={colors.inkSoft}>{sub}</T> : null}
+      <View style={{ flex: 1 }}>
+        <T v="label" color={colors.ink}>{label}</T>
+        {sub ? <T v="small" color={colors.inkSoft}>{sub}</T> : null}
+      </View>
+      {/* selection is never colour-only */}
+      {selected ? <Icon name="checkmark-circle" size={22} color={colors.brandText} /> : null}
     </Pressable>
   );
 }
@@ -326,7 +334,9 @@ const makeStyles = () =>
     backgroundColor: colors.surface,
     paddingHorizontal: space.lg,
     paddingVertical: space.md,
-    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.md,
   },
   urgency: {
     flexDirection: "row",

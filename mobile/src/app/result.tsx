@@ -256,6 +256,7 @@ export default function Result() {
       <Block icon="speedometer-outline" title={rt("concernTitle")}>
         <UrgencyBadge large urgency={urg} label={rt(`urg_${urg}` as TKey)} desc={rt(`urgDesc_${urg}` as TKey)} />
         <T color={colors.inkSoft}>{a.urgency_reason}</T>
+        {urg === "urgent" && <Button icon="location-outline" label={rt("careFind")} onPress={() => openCare(urg, rl)} />}
       </Block>
 
       {a.progress_note ? (
@@ -268,7 +269,7 @@ export default function Result() {
       {a.observations.length > 0 && (
         <Block icon="eye-outline" title={rt("seeTitle")}>
           {a.observations.map((o) => (
-            <T key={o}>• {o}</T>
+            <Bullet key={o}>{o}</Bullet>
           ))}
         </Block>
       )}
@@ -305,32 +306,30 @@ export default function Result() {
       {a.red_flags.length > 0 && (
         <Block icon="warning-outline" title={rt("watchTitle")}>
           {a.red_flags.map((f) => (
-            <T key={f}>• {f}</T>
+            <Bullet key={f}>{f}</Bullet>
           ))}
         </Block>
       )}
 
       <Block icon="checkmark-circle-outline" title={rt("nextTitle")}>
         {a.next_steps.map((s) => (
-          <T key={s}>• {s}</T>
+          <Bullet key={s}>{s}</Bullet>
         ))}
       </Block>
 
       {a.questions_for_doctor && a.questions_for_doctor.length > 0 && (
         <Block icon="help-circle-outline" title={rt("doctorQuestions")}>
           {a.questions_for_doctor.map((q) => (
-            <T key={q}>• {q}</T>
+            <Bullet key={q}>{q}</Bullet>
           ))}
         </Block>
       )}
 
       <View style={{ gap: space.sm }}>
-        {urg !== "low" && (
-          <>
-            <Button kind={urg === "urgent" ? "primary" : "secondary"} icon="location-outline" label={rt("careFind")} onPress={() => openCare(urg, rl)} />
-            <IconLine icon="lock-closed-outline">{rt("careNote")}</IconLine>
-          </>
+        {urg !== "low" && urg !== "urgent" && (
+          <Button kind="secondary" icon="location-outline" label={rt("careFind")} onPress={() => openCare(urg, rl)} />
         )}
+        {urg !== "low" && <IconLine icon="lock-closed-outline">{rt("careNote")}</IconLine>}
         <Button kind="secondary" icon="document-text-outline" label={rt("doctorShare")} onPress={onDoctor} />
       </View>
 
@@ -406,7 +405,7 @@ export default function Result() {
       {a.limitations.length > 0 && (
         <Block icon="information-circle-outline" title={rt("limitationsTitle")}>
           {a.limitations.map((l) => (
-            <T key={l} color={colors.inkSoft}>• {l}</T>
+            <Bullet key={l} color={colors.inkSoft}>{l}</Bullet>
           ))}
         </Block>
       )}
@@ -470,6 +469,16 @@ export default function Result() {
         }}
       />
     </Screen>
+  );
+}
+
+/** Hanging-indent bullet: wrapped lines align with the text, not the dot. */
+function Bullet({ children, color }: { children: React.ReactNode; color?: string }) {
+  return (
+    <View style={{ flexDirection: "row", gap: space.sm }}>
+      <T color={color ?? colors.brandText} aria-hidden>•</T>
+      <T color={color} style={{ flex: 1 }}>{children}</T>
+    </View>
   );
 }
 

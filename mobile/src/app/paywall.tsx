@@ -43,8 +43,10 @@ export default function Paywall() {
           <Button label={fill(t("paywallCta"))} onPress={onBuy} disabled={busy || !canBuy} />
           <T v="small" color={colors.inkSoft} style={{ textAlign: "center" }}>{fill(t("paywallTerms"))}</T>
           {status === "unavailable" && <T v="small" color={colors.inkSoft} style={{ textAlign: "center" }}>{t("paywallUnavailable")}</T>}
-          <Button label={t("paywallRestore")} kind="ghost" onPress={onRestore} disabled={busy || status === "unavailable"} />
-          <Button label={t("paywallNotNow")} kind="ghost" onPress={() => router.back()} />
+          <View style={{ flexDirection: "row", gap: space.sm }}>
+            <View style={{ flex: 1 }}><Button label={t("paywallRestore")} kind="ghost" onPress={onRestore} disabled={busy || status === "unavailable"} /></View>
+            <View style={{ flex: 1 }}><Button label={t("paywallNotNow")} kind="ghost" onPress={() => router.back()} /></View>
+          </View>
         </>
       }
     >
