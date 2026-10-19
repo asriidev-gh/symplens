@@ -2,7 +2,7 @@ import type { Urgency } from "@/lib/types";
 
 /**
  * Three switchable themes. `colors`, `urgencyStyle`, `shadow` and `softShadow` are live objects:
- * `applyTheme()` overwrites their values and the store re-renders consumers, so components can keep
+ * `applyTheme()` overwrites colors/urgencyStyle in place and swaps the shadow objects (RN freezes used styles) and the store re-renders consumers, so components can keep
  * importing them directly. Anything built with StyleSheet.create must be created at render time.
  */
 export type ThemeId = "warm" | "tech" | "dark";
@@ -91,7 +91,7 @@ const warm: Palette = {
   brandBorder: "#EBB99B",
   selected: "#B65A3C",
   onSelected: "#FFFFFF",
-  tabBar: "rgba(232,214,188,0.86)",
+  tabBar: "#E8D6BC",
   tabBarBorder: "rgba(255,255,255,0.35)",
   tabInactive: "#65564A",
   tabActiveLabel: "#2B2118",
@@ -129,7 +129,7 @@ const tech: Palette = {
   brandBorder: "#AEE1DB",
   selected: "#0F766E",
   onSelected: "#FFFFFF",
-  tabBar: "rgba(255,255,255,0.82)",
+  tabBar: "#FFFFFF",
   tabBarBorder: "rgba(185,203,224,0.8)",
   tabInactive: "#5B6B7C",
   tabActiveLabel: "#0F1B2D",
@@ -168,7 +168,7 @@ const dark: Palette = {
   brandBorder: "#343E7A",
   selected: "#5B4BE0",
   onSelected: "#FFFFFF",
-  tabBar: "rgba(16,23,43,0.72)",
+  tabBar: "#10172B",
   tabBarBorder: "rgba(139,123,255,0.45)",
   tabInactive: "#8A97B8",
   tabActiveLabel: "#E8ECF8",
@@ -208,8 +208,10 @@ const shadows: Record<ThemeId, { shadow: Shadow; soft: Shadow }> = {
 // ---- live token objects (mutated by applyTheme) ----
 export const colors: Palette = { ...tech };
 export const urgencyStyle: UrgencySet = { ...lightUrgency };
-export const shadow: Shadow = { ...shadows.tech.shadow };
-export const softShadow: Shadow = { ...shadows.tech.soft };
+// Shadows are swapped (never mutated): React Native freezes any object it has used as a style.
+// ES live bindings let importers see the new object after applyTheme().
+export let shadow: Shadow = shadows.tech.shadow;
+export let softShadow: Shadow = shadows.tech.soft;
 
 /** "auto" = Minimalist Tech by day, Dark Futuristic when the phone is in dark mode. */
 export function resolveTheme(pref: ThemePref, scheme: string | null | undefined): ThemeId {
@@ -221,8 +223,8 @@ export function applyTheme(id: ThemeId): void {
   Object.assign(colors, p);
   if (!p.primaryGradient) delete colors.primaryGradient;
   Object.assign(urgencyStyle, p.isDark ? darkUrgency : lightUrgency);
-  Object.assign(shadow, shadows[id]?.shadow ?? shadows.tech.shadow);
-  Object.assign(softShadow, shadows[id]?.soft ?? shadows.tech.soft);
+  shadow = shadows[id]?.shadow ?? shadows.tech.shadow;
+  softShadow = shadows[id]?.soft ?? shadows.tech.soft;
 }
 
 export const radius = { sm: 12, md: 18, lg: 26, pill: 999 };
